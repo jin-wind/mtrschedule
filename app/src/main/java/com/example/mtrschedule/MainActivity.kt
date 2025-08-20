@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mtrschedule.adapter.PlatformPagerAdapter
 import com.example.mtrschedule.databinding.ActivityMainBinding
 import com.example.mtrschedule.model.Station
 import com.example.mtrschedule.util.LanguageHelper
 import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -266,25 +268,31 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
     }
 
     private fun setupPlatformTabs(station: Station) {
-        // Simple implementation for now - group trains by platform
-        val platformGroups = station.nextTrains.groupBy { it.platform ?: 1 }
-        
-        // Clear existing tabs
-        binding.platformTabLayout.removeAllTabs()
-        
-        // Add tabs for each platform
-        platformGroups.keys.sorted().forEach { platform ->
-            val tab = binding.platformTabLayout.newTab()
-            tab.text = getString(R.string.platform, platform)
-            binding.platformTabLayout.addTab(tab)
+        // Group trains by platform
+        val platformGroups = station.nextTrains.groupBy { 
+            try {
+                it.platform.toIntOrNull() ?: 1
+            } catch (e: Exception) {
+                1
+            }
         }
         
-        // For now, just show the first platform's trains
-        // TODO: Implement proper ViewPager2 adapter
-        if (platformGroups.isNotEmpty()) {
-            val firstPlatformTrains = platformGroups.values.first()
-            // This would normally go to a RecyclerView in the ViewPager
+        if (platformGroups.isEmpty()) {
+            binding.platformTabLayout.visibility = View.GONE
+            binding.platformViewPager.visibility = View.GONE
+            binding.noTrainsLayout.visibility = View.VISIBLE
+            return
         }
+
+        // Setup ViewPager2 with platform adapter
+        val pagerAdapter = PlatformPagerAdapter(this, platformGroups)
+        binding.platformViewPager.adapter = pagerAdapter
+
+        // Connect TabLayout with ViewPager2
+        TabLayoutMediator(binding.platformTabLayout, binding.platformViewPager) { tab, position ->
+            val platformNumber = pagerAdapter.getPlatformNumber(position)
+            tab.text = getString(R.string.platform, platformNumber)
+        }.attach()
     }
 
     private fun showStationList() {

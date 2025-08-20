@@ -22,4 +22,6 @@
     <string name="language_changed">語言已切換為中文</string>
     <string name="auto_refresh_enabled">已啟用自動刷新（30秒）</string>
     <string name="auto_refresh_disabled">已停用自動刷新</string>
+    <string name="no_trains_this_platform">此月台暫無列車</string>
+    <string name="check_other_platforms">請查看其他月台的可用列車</string>
 </resources>

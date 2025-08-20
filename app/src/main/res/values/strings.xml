@@ -27,5 +27,7 @@
 	<string name="language_changed">Language changed to English</string>
 	<string name="auto_refresh_enabled">Auto-refresh enabled (30s)</string>
 	<string name="auto_refresh_disabled">Auto-refresh disabled</string>
+	<string name="no_trains_this_platform">No trains for this platform</string>
+	<string name="check_other_platforms">Check other platforms for available trains</string>
 
 </resources>
