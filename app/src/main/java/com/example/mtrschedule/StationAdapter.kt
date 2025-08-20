@@ -33,21 +33,27 @@ class StationAdapter(private val listener: StationClickListener) :
 
         fun bind(station: Station, listener: StationClickListener) {
             binding.stationNameText.text = station.stationName
-            binding.stationCodeText.text = "ID: ${station.stationId}"
+            binding.stationCodeText.text = station.stationId
 
             val nextTrain = station.nextTrains.firstOrNull()
             if (nextTrain != null) {
-                binding.nextTrainTimeText.text =
+                val timeText = if (nextTrain.timeToArrival == 0) {
+                    binding.root.context.getString(R.string.arriving)
+                } else {
                     binding.root.context.getString(R.string.minutes_format, nextTrain.timeToArrival)
-                binding.destinationText.text = nextTrain.destination
+                }
+                binding.nextTrainTimeText.text = timeText
+                binding.destinationText.text = "${binding.root.context.getString(R.string.next_train_label)} ${nextTrain.destination}"
             } else {
                 binding.nextTrainTimeText.text = "-"
-                binding.destinationText.text = "-"
+                binding.destinationText.text = binding.root.context.getString(R.string.no_trains_available)
             }
 
             // Set click listener
             binding.root.setOnClickListener {
                 listener.onStationClick(station)
+            }
+        }
             }
         }
     }
