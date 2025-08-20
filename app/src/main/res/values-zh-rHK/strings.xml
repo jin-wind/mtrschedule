@@ -2,10 +2,12 @@
     <string name="app_title">港鐵輕鐵班次表</string>
     <string name="station_code_label">車站編號：</string>
     <string name="next_train_label">下一班列車：</string>
+    <string name="next_train_label_short">下一班</string>
     <string name="destination_label">目的地：</string>
     <string name="minutes_format">%d 分鐘</string>
     <string name="error_loading_data">載入數據失敗，請重試</string>
     <string name="refresh">刷新</string>
+    <string name="refreshing">正在刷新…</string>
     <string name="search_hint">搜尋車站</string>
     <string name="next_trains">下一班列車</string>
     <string name="no_trains_available">目前沒有可用的列車</string>
@@ -13,4 +15,11 @@
     <string name="change_language">English</string>
     <string name="arriving">即將到達</string>
     <string name="platform">月台 %d</string>
+    <string name="by_station">按車站</string>
+    <string name="by_route">按路線</string>
+    <string name="retry">重試</string>
+    <string name="estimated">預計</string>
+    <string name="language_changed">語言已切換為中文</string>
+    <string name="auto_refresh_enabled">已啟用自動刷新（30秒）</string>
+    <string name="auto_refresh_disabled">已停用自動刷新</string>
 </resources>

@@ -3,10 +3,12 @@
     <string name="app_title">MTR Light Rail Schedule</string>
     <string name="station_code_label">Station ID:</string>
     <string name="next_train_label">Next Train:</string>
+    <string name="next_train_label_short">Next</string>
     <string name="destination_label">Destination:</string>
     <string name="minutes_format">%d min</string>
     <string name="error_loading_data">Failed to load data. Please try again.</string>
     <string name="refresh">Refresh</string>
+    <string name="refreshing">Refreshing…</string>
     <string name="search_hint">Search for stations</string>
     <string name="next_trains">Next Trains</string>
     <string name="no_trains_available">No trains available at this time</string>
@@ -18,5 +20,12 @@
 	<string name="route_number_format">Route %s</string>
 	<string name="platform_route_format">%s - %s</string>
 	<string name="last_updated_format">Last updated: %s UTC</string>
+	<string name="by_station">By Station</string>
+	<string name="by_route">By Route</string>
+	<string name="retry">Retry</string>
+	<string name="estimated">Estimated</string>
+	<string name="language_changed">Language changed to English</string>
+	<string name="auto_refresh_enabled">Auto-refresh enabled (30s)</string>
+	<string name="auto_refresh_disabled">Auto-refresh disabled</string>
 
 </resources>
