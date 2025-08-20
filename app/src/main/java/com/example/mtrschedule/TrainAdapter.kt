@@ -33,6 +33,21 @@ class TrainAdapter : ListAdapter<Train, TrainAdapter.TrainViewHolder>(TrainDiffC
             // Show destination name
             binding.destinationText.text = train.destination
 
+            // Display platform information
+            val platformText = when (train.platform) {
+                "1" -> "站台1"
+                "2" -> "站台2"
+                else -> "站台${train.platform}"
+            }
+            binding.platformText.text = platformText
+
+            // Apply different styling based on platform
+            when (train.platform) {
+                "1" -> binding.platformText.setTextColor(binding.root.context.getColor(android.R.color.holo_green_dark))
+                "2" -> binding.platformText.setTextColor(binding.root.context.getColor(android.R.color.holo_blue_dark))
+                else -> binding.platformText.setTextColor(binding.root.context.getColor(android.R.color.holo_green_dark))
+            }
+
             // Format arrival time
             binding.timeText.text = if (train.timeToArrival == 0) {
                 binding.root.context.getString(R.string.arriving)

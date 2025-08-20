@@ -18,5 +18,5 @@
 	<string name="route_number_format">Route %s</string>
 	<string name="platform_route_format">%s - %s</string>
 	<string name="last_updated_format">Last updated: %s UTC</string>
-
+    <string name="station_name">車站名稱</string>
 </resources>

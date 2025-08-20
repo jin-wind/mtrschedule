@@ -1,5 +1,6 @@
 package com.example.mtrschedule
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -21,20 +22,25 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.title = ""
         setContentView(binding.root)
+
 
         setupViewModel()
         setupRecyclerView()
         setupSwipeToRefresh()
         observeData()
 
-        // Set up back button for detail view
-        binding.backButton.setOnClickListener {
-            showStationList()
+        // 設置按鈕跳轉到設置頁面
+        binding.settingsButton.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
 
-        // Set initial timestamp
+        // 設置初始時間戳
         updateTimestamp()
     }
 
@@ -47,7 +53,11 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this)[TrainScheduleViewModel::class.java]
-        viewModel.fetchStationSchedule("240") // Test with a specific station
+
+        // 加載默認站點
+        val sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
+        val defaultStationId = sharedPreferences.getString("default_station", "240") // 默認站點
+        viewModel.fetchStationSchedule(defaultStationId ?: "240")
     }
 
     private fun setupRecyclerView() {
@@ -99,17 +109,16 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
     }
 
     private fun displayStationDetail(station: Station) {
-        // Hide station list, show detail
+        // 隱藏站點列表，顯示詳細信息
         binding.stationListLayout.visibility = View.GONE
         binding.stationDetailLayout.visibility = View.VISIBLE
-        binding.backButton.visibility = View.VISIBLE
 
-        // Update UI with station details
+        // 更新 UI
         binding.stationIdText.text = getString(R.string.station_code_label) + " " + station.stationId
-        binding.stationIdText.tag = station.stationId // Store ID for refresh
+        binding.stationIdText.tag = station.stationId // 存儲 ID 以便刷新
         binding.stationNameText.text = station.stationName
 
-        // Setup train list
+        // 設置列車列表
         val trainAdapter = TrainAdapter()
         binding.trainRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.trainRecyclerView.adapter = trainAdapter
@@ -125,10 +134,25 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
     private fun showStationList() {
         binding.stationListLayout.visibility = View.VISIBLE
         binding.stationDetailLayout.visibility = View.GONE
-        binding.backButton.visibility = View.GONE
     }
 
     override fun onStationClick(station: Station) {
         viewModel.fetchStationSchedule(station.stationId)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (binding.stationDetailLayout.visibility == View.VISIBLE) {
+            showStationList()
+            return true
+        }
+        return super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (binding.stationDetailLayout.visibility == View.VISIBLE) {
+            showStationList()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

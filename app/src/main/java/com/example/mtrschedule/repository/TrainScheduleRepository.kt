@@ -59,9 +59,9 @@ class TrainScheduleRepository {
                                 Train(
                                     trainId = "${platform.platformId}_${route.routeNo}",
                                     routeNumber = route.routeNo,
-                                    destination = route.destinationEn,
+                                    destination = route.destinationCh,
                                     platform = "Platform ${platform.platformId}",
-                                    eta = route.timeEn,
+                                    eta = route.timeCh,
                                     timeToArrival = minutes,
                                     timestamp = currentTimestamp
                                 )
@@ -72,7 +72,7 @@ class TrainScheduleRepository {
                     val station = Station(
                         stationId = stationId,
                         stationCode = stationId,
-                        stationName = stationInfo.nameEn,
+                        stationName = stationInfo.nameChi,
                         nextTrains = trains.sortedBy { it.timeToArrival }
                     )
                     Result.success(station)
@@ -126,7 +126,7 @@ class TrainScheduleRepository {
             Station(
                 stationId = stationInfo.id,
                 stationCode = stationInfo.id,
-                stationName = stationInfo.nameEn,
+                stationName = stationInfo.nameChi,
                 nextTrains = emptyList()
             )
         }
