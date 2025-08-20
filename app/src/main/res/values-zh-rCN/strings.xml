@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_title">港铁轻铁班次表</string>
+    <string name="station_code_label">车站编号：</string>
+    <string name="next_train_label">下一班列车：</string>
+    <string name="destination_label">目的地：</string>
+    <string name="minutes_format">%d 分钟</string>
+    <string name="error_loading_data">加载数据失败，请重试</string>
+    <string name="refresh">刷新</string>
+    <string name="search_hint">搜索车站</string>
+    <string name="next_trains">下一班列车</string>
+    <string name="no_trains_available">当前没有可用的列车</string>
+    <string name="back">返回</string>
+    <string name="change_language">English</string>
+    <string name="arriving">即将抵达</string>
+    <string name="platform">月台 %d</string>
+</resources>

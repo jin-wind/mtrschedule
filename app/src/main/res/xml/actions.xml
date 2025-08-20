@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actions xmlns:android="http://schemas.android.com/apk/res/android">
+    <action>
+        <intent>
+            <action>android.intent.action.VIEW</action>
+            <data
+                android:host="mtrschedule"
+                android:scheme="app" />
+        </intent>
+        <fulfillment>
+            <activity>
+                <package>com.example.mtrschedule</package>
+                <class>com.example.mtrschedule.MainActivity</class>
+            </activity>
+        </fulfillment>
+    </action>
+</actions>
