@@ -4,9 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/card_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,9 +22,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/nextTrainTimeText"
+            app:layout_constraintEnd_toStartOf="@+id/pinIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Tuen Mun Ferry Pier" />
@@ -30,33 +35,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stationNameText"
             tools:text="ID: 240" />
 
-        <TextView
-            android:id="@+id/destinationText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/nextTrainTimeText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stationCodeText"
-            tools:text="Next: Tuen Mun Ferry Pier" />
 
         <TextView
-            android:id="@+id/nextTrainTimeText"
-            android:layout_width="wrap_content"
+            android:id="@+id/destinationText"
+            android:layout_width="355dp"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="-7dp"
+            tools:layout_editor_absoluteY="-3dp" />
+
+
+        <ImageView
+            android:id="@+id/pinIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/station_name"
+            android:src="@android:drawable/ic_menu_myplaces"
+            android:tint="@color/primary"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="5 min" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

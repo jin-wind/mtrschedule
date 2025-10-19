@@ -9,8 +9,8 @@
         </intent>
         <fulfillment>
             <activity>
-                <package>com.example.mtrschedule</package>
-                <class>com.example.mtrschedule.MainActivity</class>
+                <package>com.jinwind.mtrschedule</package>
+                <class>com.jinwind.mtrschedule.MainActivity</class>
             </activity>
         </fulfillment>
     </action>

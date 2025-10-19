@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace 'com.example.mtrschedule'
+    namespace 'com.jinwind.mtrschedule'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.mtrschedule"
+        applicationId "com.jinwind.mtrschedule"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 25
+        versionName "2.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -13,4 +13,7 @@
     <string name="change_language">English</string>
     <string name="arriving">即将抵达</string>
     <string name="platform">月台 %d</string>
+    <string name="train_car_icon_content_description">列车车卡图示</string>
+    <string name="train_car_single_description">单卡列车</string>
+    <string name="train_car_double_description">双卡列车</string>
 </resources>
