@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主题颜色 -->
+    <color name="primary">#7871AA</color>
+    <color name="primary_variant">#5D578A</color>
+    <color name="on_primary">#FFFCF2</color>
+
+    <!-- 站点颜色 -->
+    <color name="station_top">#37123C</color>
+    <color name="station_topped">#37123C</color>
+    <color name="station_normal">#71677C</color>
+
+    <!-- 背景颜色 -->
+    <color name="background">#252422</color>
+    <color name="card_background">#2F2E2B</color>
+    <color name="settings_background">#252422</color>
+
+    <!-- 文本颜色 -->
+    <color name="text_primary">#FFFCF2</color>
+    <color name="text_secondary">#CCC5B9</color>
+
+    <!-- 界面元素颜色 -->
+    <color name="search_background">#403D39</color>
+    <color name="spinner_background">#403D39</color>
+</resources>

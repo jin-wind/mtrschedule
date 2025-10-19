@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MTR Schedule</string>
     <string name="app_title">MTR Light Rail Schedule</string>
-    <string name="station_code_label">Station ID:</string>
+    <string name="station_code_label">Station ID: %s</string>
     <string name="next_train_label">Next Train:</string>
     <string name="destination_label">Destination:</string>
     <string name="minutes_format">%d min</string>
@@ -19,4 +19,47 @@
 	<string name="platform_route_format">%s - %s</string>
 	<string name="last_updated_format">Last updated: %s UTC</string>
     <string name="station_name">車站名稱</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="pin_station">收藏站点</string>
+    <string name="station_pinned">已收藏：%s</string>
+    <string name="station_unpinned">已取消收藏：%s</string>
+    <string name="car_type">车厢类型</string>
+    <string name="single_car">单车厢</string>
+    <string name="double_car">双车厢</string>
+    <string name="train_car_icon_content_description">車卡數量圖示</string>
+    <string name="train_car_single_description">單卡列車</string>
+    <string name="train_car_double_description">雙卡列車</string>
+
+    <!-- 新增设置页面字符串 -->
+    <string name="default_station">預設車站</string>
+    <string name="default_station_description">Choose the station that will be displayed when you open the app.</string>
+    <string name="search_station">搜尋</string>
+    <string name="topped_stations">頂置站臺</string>
+    <string name="topped_stations_description">管理頂置車站</string>
+    <string name="clear_topped_stations">重置車站排序</string>
+    <string name="reset_order_success">Success,please restart the app</string>
+    <string name="language_settings">Language Settings</string>
+    <string name="system_language">根據系統語言</string>
+    <string name="english">English</string>
+    <string name="chinese">中文</string>
+    <string name="save_settings">保存設置</string>
+
+    <!-- 侧边栏相关字符串 -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_home">首頁</string>
+    <string name="nav_settings">設置</string>
+    <string name="nav_routes">路線號碼</string>
+    <string name="route_prefix">路線 </string>
+    <string name="route_detail">路線詳情</string>
+    <string name="route_stations">途經站點</string>
+    <string name="route_from_to">%1$s → %2$s</string>
+    <string name="close">關閉</string>
+    <string name="route_mode">路線模式</string>
+
+    <!-- 路线菜单相关字符串 -->
+    <string name="filter_routes">筛选路线</string>
+    <string name="search_routes">搜索路线</string>
+    <string name="select_route_hint">请选择左侧的路线号码</string>
 </resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/card_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="6dp">
+
+        <!-- 站台信息栏 - 使用纯文本布局 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp">
+
+            <!-- 使用地铁站相关图标 -->
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_star_outline"
+                android:tint="#A4B8FF"
+                android:layout_marginEnd="6dp"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/station_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                tools:text="兆康站" />
+
+            <TextView
+                android:id="@+id/station_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#A4B8FF"
+                tools:text="(SIU)" />
+        </LinearLayout>
+
+        <!-- 列车列表 - 水平滚动列表 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/station_trains_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false" />
+
+        <!-- 无列车时显示 -->
+        <TextView
+            android:id="@+id/no_trains_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="@string/no_trains_available"
+            android:textColor="#A4B8FF"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -5,64 +5,86 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    app:cardBackgroundColor="#404040"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
         <!-- Main item: Route Number -->
+
+        <!-- Secondary: Destination -->
+
+        <!-- Platform information -->
+
+        <!-- Time to arrival -->
+
         <TextView
             android:id="@+id/routeNumberText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
+            android:textColor="#D5C5C8"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#1976D2"
-            app:layout_constraintEnd_toStartOf="@+id/timeText"
+            app:layout_constraintEnd_toStartOf="@+id/trainCarIcon"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Route 505" />
 
-        <!-- Secondary: Destination -->
+        <ImageView
+            android:id="@+id/trainCarIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/train_car_icon_content_description"
+            android:src="@drawable/ic_train_single"
+            app:layout_constraintBottom_toBottomOf="@+id/timeText"
+            app:layout_constraintEnd_toStartOf="@+id/timeText"
+            app:layout_constraintStart_toEndOf="@+id/routeNumberText"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_train_double" />
+
         <TextView
             android:id="@+id/destinationText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/timeText"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/routeNumberText"
             tools:text="Tuen Mun Ferry Pier" />
 
-        <!-- Platform information -->
         <TextView
             android:id="@+id/platformText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="#403F3F"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#4CAF50"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/timeText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/destinationText"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/destinationText"
+            app:layout_constraintTop_toBottomOf="@+id/routeNumberText"
             tools:text="站台1" />
 
-        <!-- Time to arrival -->
         <TextView
             android:id="@+id/timeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="#ABA8B2"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="5 min" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

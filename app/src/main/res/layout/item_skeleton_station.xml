@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 站点名称占位 -->
+        <View
+            android:id="@+id/skeleton_station_name"
+            android:layout_width="180dp"
+            android:layout_height="24dp"
+            android:background="@drawable/skeleton_background" />
+
+        <!-- 站点ID占位 -->
+        <View
+            android:id="@+id/skeleton_station_id"
+            android:layout_width="60dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/skeleton_background" />
+
+        <!-- 列车信息占位 -->
+        <View
+            android:id="@+id/skeleton_trains"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/skeleton_background" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

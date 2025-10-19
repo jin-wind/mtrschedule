@@ -20,7 +20,7 @@
             android:layout_marginEnd="8dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/nextTrainTimeText"
+            app:layout_constraintEnd_toStartOf="@+id/pinIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Tuen Mun Ferry Pier" />
@@ -35,28 +35,27 @@
             app:layout_constraintTop_toBottomOf="@+id/stationNameText"
             tools:text="ID: 240" />
 
-        <TextView
-            android:id="@+id/destinationText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/nextTrainTimeText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stationCodeText"
-            tools:text="Next: Tuen Mun Ferry Pier" />
 
         <TextView
-            android:id="@+id/nextTrainTimeText"
-            android:layout_width="wrap_content"
+            android:id="@+id/destinationText"
+            android:layout_width="355dp"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="-7dp"
+            tools:layout_editor_absoluteY="-3dp" />
+
+
+        <ImageView
+            android:id="@+id/pinIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/station_name"
+            android:src="@android:drawable/ic_menu_myplaces"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="5 min" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
