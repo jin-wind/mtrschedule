@@ -23,6 +23,7 @@ class RouteModeFragment : Fragment() {
     private lateinit var routeDetailPlaceholder: TextView
     private lateinit var routeLoadingProgress: ProgressBar
     private lateinit var routeErrorText: TextView
+    private lateinit var routeDirectionText: TextView
 
     private lateinit var routeAdapter: RouteAdapter
     private lateinit var routeStationAdapter: RouteStationAdapter
@@ -61,6 +62,7 @@ class RouteModeFragment : Fragment() {
         routeDetailPlaceholder = view.findViewById(R.id.route_detail_placeholder)
         routeLoadingProgress = view.findViewById(R.id.route_loading_progress)
         routeErrorText = view.findViewById(R.id.route_error_text)
+    routeDirectionText = view.findViewById(R.id.route_direction_text)
 
         // 初始化ViewModel
         val factory = TrainScheduleViewModelFactory(requireActivity().application)
@@ -171,8 +173,8 @@ class RouteModeFragment : Fragment() {
         } else {
             "${route.startStation} → ${route.endStation}"
         }
-        routeErrorText.text = titleText
-        routeErrorText.visibility = View.VISIBLE
+        routeDirectionText.visibility = View.VISIBLE
+        routeDirectionText.text = titleText
 
         // 设置适配器方向
         routeStationAdapter.setDirection(isReverse)

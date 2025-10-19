@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 主题颜色 -->
-    <color name="primary">#7B5E7B</color>
-    <color name="primary_variant">#654B65</color>
-    <color name="on_primary">#FFFCF2</color>
+    <!-- 主題顏色 -->
+    <color name="primary">#F4A6C1</color>
+    <color name="primary_variant">#E091B0</color>
+    <color name="on_primary">#1B1C1E</color>
 
-    <!-- 站点颜色 -->
-    <color name="station_top">#7B5E7B</color>
-    <color name="station_topped">#9E7A9E</color>
-    <color name="station_normal">#CCC5B9</color>
+    <!-- 站點顏色，用於收藏狀態 -->
+    <color name="station_top">#F4A6C1</color>
+    <color name="station_topped">#F8C6D9</color>
+    <color name="station_normal">#E3E4F0</color>
 
-    <!-- 站台颜色 -->
-    <color name="platform_color">#949396</color>
+    <!-- 站台顏色 -->
+    <color name="platform_color">#8D90A3</color>
 
-    <!-- 背景颜色 -->
-    <color name="background">#FFFCF2</color>
-    <color name="card_background">#FFFCF2</color>
-    <color name="settings_background">#FFFCF2</color>
+    <!-- 背景顏色 -->
+    <color name="background">#F7F7FA</color>
+    <color name="background_alt">#F0F1F6</color>
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="settings_background">#F7F7FA</color>
 
-    <!-- 文本颜色 -->
-    <color name="text_primary">#252422</color>
-    <color name="text_secondary">#403D39</color>
+    <!-- 文本顏色 -->
+    <color name="text_primary">#1F1F24</color>
+    <color name="text_secondary">#5C5D68</color>
+    <color name="text_tertiary">#9A9BA6</color>
 
-    <!-- 界面元素颜色 -->
-    <color name="search_background">#CCC5B9</color>
-    <color name="spinner_background">#CCC5B9</color>
+    <!-- 功能色彩 -->
+    <color name="divider_muted">#E5E6EF</color>
+    <color name="overlay_soft">#CCFFFFFF</color>
+    <color name="icon_tint">#76778A</color>
+    <color name="nav_background">#FFFFFFFF</color>
 
-    <!-- 系统颜色 -->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <!-- 搜尋與表單背景 -->
+    <color name="search_background">#ECEEF7</color>
+    <color name="spinner_background">#ECEEF7</color>
+
+    <!-- 路線卡片顏色 -->
+    <color name="route_card_background">@color/card_background</color>
+    <color name="route_card_header_background">#F1F2FB</color>
+    <color name="route_card_text">@color/text_primary</color>
+    <color name="route_card_time_text">#6C708C</color>
+
+    <!-- 系統顏色備用 -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

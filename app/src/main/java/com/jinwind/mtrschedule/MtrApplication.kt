@@ -10,8 +10,8 @@ import java.util.Locale
 class MtrApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        // 强制应用使用黑暗模式
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    // 使用系統主題偏好，搭配新的亮/暗雙主題樣式
+    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
     override fun attachBaseContext(base: Context) {

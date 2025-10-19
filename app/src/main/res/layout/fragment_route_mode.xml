@@ -3,14 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <!-- 左侧路线选择区域 - 占屏幕1/5宽度 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/route_list_recycler_view"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="#494949"
+    android:background="@color/background_alt"
+        android:layoutAnimation="@anim/layout_fade_slide_up"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,8 +23,9 @@
     <!-- 右侧路线详情区域 - 占屏幕4/5宽度 -->
     <FrameLayout
         android:id="@+id/route_detail_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:background="@color/background"
         app:layout_constraintStart_toEndOf="@id/route_list_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,9 +36,10 @@
             android:id="@+id/route_stations_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
             android:clipToPadding="false"
-            android:visibility="gone"/>
+            android:layoutAnimation="@anim/layout_fade_slide_up"
+            android:padding="12dp"
+            android:visibility="visible" />
 
         <!-- 初始提示文本 -->
         <TextView
@@ -41,8 +47,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_route_hint"
+            android:textColor="@color/text_secondary"
             android:textSize="18sp"
             android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/route_direction_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:text="屯門碼頭 → 元朗" />
 
         <!-- 加载指示器 -->
         <ProgressBar
@@ -50,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:indeterminateTint="@color/primary"
             android:visibility="gone"/>
 
         <!-- 错误提示 -->
@@ -58,7 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="#FF0000"
+            android:background="@drawable/bg_error_banner"
+            android:textColor="@color/on_primary"
             android:padding="16dp"
             android:visibility="gone"/>
 

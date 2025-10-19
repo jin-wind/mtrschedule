@@ -2,28 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@color/design_default_color_primary"
+    android:background="@color/nav_background"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:paddingStart="20dp"
+    android:paddingTop="24dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="20dp">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_dialog_map" />
+        android:contentDescription="@string/app_name"
+        android:src="@android:drawable/ic_dialog_map"
+        android:tint="@color/icon_tint" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="港鐵時刻表"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.Mtrschedule.Title"
         android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="查看實時列車資訊" />
+        android:layout_marginTop="4dp"
+        android:text="查看實時列車資訊"
+        android:textAppearance="@style/TextAppearance.Mtrschedule.Body" />
 
 </LinearLayout>

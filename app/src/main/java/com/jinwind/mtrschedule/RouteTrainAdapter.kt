@@ -27,7 +27,8 @@ class RouteTrainAdapter : ListAdapter<Train, RouteTrainAdapter.RouteTrainViewHol
 
     inner class RouteTrainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val routeNumberText: TextView = itemView.findViewById(R.id.routeNumberText)
-        private val timeText: TextView = itemView.findViewById(R.id.timeText)
+    private val timeText: TextView = itemView.findViewById(R.id.timeText)
+    private val destinationText: TextView = itemView.findViewById(R.id.destinationText)
         private val carIcon: ImageView = itemView.findViewById(R.id.carIcon)
 
         fun bind(train: Train) {
@@ -45,6 +46,9 @@ class RouteTrainAdapter : ListAdapter<Train, RouteTrainAdapter.RouteTrainViewHol
             )
 
             // 显示到达时间
+            destinationText.text = train.destination
+
+            // 顯示到達時間
             timeText.text = when {
                 train.timeToArrival == 0 -> itemView.context.getString(R.string.arriving)
                 train.timeToArrival == 1 -> "1分钟"

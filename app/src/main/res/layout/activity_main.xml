@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -19,10 +20,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="@color/background"
+            android:elevation="0dp"
+            android:theme="@style/ThemeOverlay.Mtrschedule.Toolbar"
+            app:popupTheme="@style/ThemeOverlay.Mtrschedule.Toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -42,6 +43,7 @@
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@color/background"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,21 +64,27 @@
                             android:id="@+id/searchEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:background="@android:color/black"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/bg_search_field"
                             android:drawableStart="@android:drawable/ic_menu_search"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/icon_tint"
                             android:hint="搜尋車站"
                             android:inputType="text"
-                            android:padding="8dp"
-                            android:textColor="@android:color/white"
-                            android:textColorHint="#888888"
-                            android:visibility="visible" />
+                            android:padding="12dp"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_tertiary"
+                            android:visibility="gone" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/stationsRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:layoutAnimation="@anim/layout_fade_slide_up"
                             tools:listitem="@layout/item_station" />
                     </LinearLayout>
 
@@ -85,14 +93,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="16dp"
-                        android:visibility="visible">
+                        android:paddingStart="20dp"
+                        android:paddingTop="24dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="16dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/stationNameText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/station_name"
+                            android:textColor="@color/text_primary"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -101,6 +113,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
+                            android:textColor="@color/text_secondary"
                             android:textSize="16sp"
                             tools:text="ID: 240" />
 
@@ -109,6 +122,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:text="@string/next_trains"
+                            android:textColor="@color/text_primary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -118,6 +132,7 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="8dp"
                             android:layout_weight="1"
+                            android:layoutAnimation="@anim/layout_fade_slide_up"
                             tools:listitem="@layout/item_train" />
 
                         <TextView
@@ -127,6 +142,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="32dp"
                             android:text="@string/no_trains_available"
+                            android:textColor="@color/text_secondary"
                             android:textSize="16sp"
                             android:visibility="gone" />
                     </LinearLayout>
@@ -153,12 +169,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:gravity="end|center_vertical"
-            android:padding="4dp"
+            android:padding="6dp"
             android:text="Timestamp"
-            android:textColor="#757575"
+            android:textColor="@color/text_tertiary"
             android:textSize="11sp"
             android:textStyle="italic"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -166,6 +182,7 @@
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:indeterminateTint="@color/primary"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -176,8 +193,12 @@
             android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#AAFF0000"
-            android:padding="8dp"
+            android:background="@drawable/bg_error_banner"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/on_primary"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +213,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/nav_background"
         android:fitsSystemWindows="true"
+        app:itemIconTint="@color/nav_item_icon_tint"
+        app:itemTextColor="@color/nav_item_text_tint"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" />
 

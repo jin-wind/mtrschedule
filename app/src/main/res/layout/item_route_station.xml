@@ -4,16 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="6dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="#FFFFFF">
+    app:cardBackgroundColor="@color/card_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="6dp">
+        android:paddingStart="12dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="12dp">
 
         <!-- 站台信息栏 - 使用纯文本布局，无背景 -->
         <LinearLayout
@@ -30,27 +36,27 @@
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@drawable/ic_star_outline"
-                android:tint="#778DD3"
                 android:layout_marginEnd="6dp"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_star_outline"
+                android:tint="@color/primary" />
 
             <TextView
                 android:id="@+id/station_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
                 tools:text="兆康站" />
 
             <TextView
                 android:id="@+id/station_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
                 android:textSize="12sp"
-                android:textColor="#778DD3"
                 tools:text="(SIU)" />
         </LinearLayout>
 
@@ -73,7 +79,7 @@
             android:layout_marginTop="2dp"
             android:gravity="center"
             android:text="@string/no_trains_available"
-            android:textColor="#778DD3"
+            android:textColor="@color/text_secondary"
             android:textSize="12sp"
             android:textStyle="italic"
             android:visibility="gone" />

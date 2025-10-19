@@ -4,8 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="#F5F5F5">
+    android:paddingStart="12dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="6dp"
+    android:background="@color/background_alt">
 
     <TextView
         android:id="@+id/platformHeaderText"
@@ -13,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="#3F51B5"
+    android:textColor="@color/primary"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         tools:text="站台1" />
@@ -21,7 +24,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="6dp"
+        android:background="@color/divider_muted" />
 
 </LinearLayout>

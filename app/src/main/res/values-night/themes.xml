@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.Mtrschedule" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- 主要颜色 -->
+        <!-- 主要顏色 -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_variant</item>
         <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/primary</item>
 
-        <!-- 背景颜色 -->
+        <!-- 背景顏色 -->
         <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
         <item name="colorSurface">@color/card_background</item>
         <item name="colorOnBackground">@color/text_primary</item>
         <item name="colorOnSurface">@color/text_primary</item>
 
-        <!-- 状态栏颜色 -->
-        <item name="android:statusBarColor">@color/primary_variant</item>
-
-        <!-- 其他样式设置 -->
+        <!-- 狀態列與導航列 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- 控制元件顏色 -->
+        <item name="colorControlHighlight">@color/overlay_soft</item>
+        <item name="colorOutline">@color/divider_muted</item>
     </style>
 </resources>
 
