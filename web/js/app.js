@@ -104,7 +104,7 @@ class MtrScheduleApp {
             this.currentStation = data;
             this.renderStationDetail(data);
             this.showStationDetail();
-            this.updateTimestamp();
+            this.updateTimestamp(data.isDemo);
         } catch (error) {
             this.showError(`Failed to load station data: ${error.message}`);
         } finally {
@@ -162,8 +162,17 @@ class MtrScheduleApp {
         }
     }
     
-    updateTimestamp() {
-        this.timestampText.textContent = `Last updated: ${getCurrentTimestamp()}`;
+    updateTimestamp(isDemo) {
+        const timestamp = getCurrentTimestamp();
+        const demoIndicator = isDemo ? ' (使用示範數據 - Demo Data)' : '';
+        this.timestampText.textContent = `Last updated: ${timestamp}${demoIndicator}`;
+        if (isDemo) {
+            this.timestampText.style.color = '#856404';
+            this.timestampText.style.backgroundColor = '#fff3cd';
+        } else {
+            this.timestampText.style.color = '';
+            this.timestampText.style.backgroundColor = '';
+        }
     }
     
     showLoading(show) {

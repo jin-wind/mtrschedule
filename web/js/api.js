@@ -1,26 +1,92 @@
 // MTR API Service
 const API_BASE_URL = 'https://rt.data.gov.hk/v1/transport/mtr/lrt/getSchedule';
+const CORS_PROXIES = [
+    'https://corsproxy.io/?',
+    'https://api.codetabs.com/v1/proxy?quest='
+];
 
 // Fetch train schedule for a station
 async function fetchStationSchedule(stationId) {
+    const apiUrl = `${API_BASE_URL}?station_id=${stationId}`;
+    
+    // Try direct API first
     try {
-        const response = await fetch(`${API_BASE_URL}?station_id=${stationId}`);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const data = await response.json();
+            if (data.status === 1) {
+                return parseScheduleData(stationId, data);
+            }
         }
-        
-        const data = await response.json();
-        
-        if (data.status !== 1) {
-            throw new Error('Invalid API response');
-        }
-        
-        return parseScheduleData(stationId, data);
     } catch (error) {
-        console.error('Error fetching station schedule:', error);
-        throw error;
+        console.log('Direct API failed, trying CORS proxy...', error.message);
     }
+    
+    // Try CORS proxies
+    for (const proxy of CORS_PROXIES) {
+        try {
+            const url = `${proxy}${encodeURIComponent(apiUrl)}`;
+            const response = await fetch(url);
+            
+            if (response.ok) {
+                const data = await response.json();
+                if (data.status === 1) {
+                    return parseScheduleData(stationId, data);
+                }
+            }
+        } catch (error) {
+            console.log(`CORS proxy ${proxy} failed:`, error.message);
+        }
+    }
+    
+    // If all methods fail, return demo data
+    console.log('All API methods failed, using demo data');
+    return getDemoData(stationId);
+}
+
+// Generate demo data when API is unavailable
+function getDemoData(stationId) {
+    const station = getStationById(stationId);
+    
+    if (!station) {
+        throw new Error(`Station not found: ${stationId}`);
+    }
+    
+    // Generate realistic demo train data
+    const routes = ['610', '614', '615', '751', '761', '505', '507'];
+    const destinations = ['屯門碼頭', '元朗', '屯門', '天逸', '友愛', '三聖'];
+    const trains = [];
+    
+    // Generate 6-8 trains
+    const trainCount = 6 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < trainCount; i++) {
+        const timeToArrival = i * 3 + Math.floor(Math.random() * 2);
+        const route = routes[Math.floor(Math.random() * routes.length)];
+        const destination = destinations[Math.floor(Math.random() * destinations.length)];
+        const platform = Math.floor(Math.random() * 2) + 1;
+        
+        trains.push({
+            trainId: `demo_${i}`,
+            routeNumber: route,
+            destination: destination,
+            platform: platform,
+            eta: timeToArrival === 0 ? '即將抵達' : `${timeToArrival} 分鐘`,
+            timeToArrival: timeToArrival
+        });
+    }
+    
+    // Sort trains by time to arrival
+    trains.sort((a, b) => a.timeToArrival - b.timeToArrival);
+    
+    return {
+        stationId: stationId,
+        stationCode: stationId,
+        stationName: station.nameCh,
+        stationNameEn: station.nameEn,
+        trains: trains,
+        timestamp: new Date().toISOString(),
+        isDemo: true
+    };
 }
 
 // Parse API response into a structured format
