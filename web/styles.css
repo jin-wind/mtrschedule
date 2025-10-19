@@ -1,0 +1,610 @@
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #1976d2;
+    --primary-dark: #1565c0;
+    --accent-color: #ff9800;
+    --background-color: #f5f5f5;
+    --surface-color: #ffffff;
+    --text-primary: #212121;
+    --text-secondary: #757575;
+    --divider-color: #e0e0e0;
+    --error-color: #f44336;
+    --success-color: #4caf50;
+    --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-elevated: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* App Container */
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar */
+.toolbar {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow-elevated);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.menu-button, .icon-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.menu-button:hover, .icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#toolbar-title {
+    flex: 1;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* Navigation Drawer */
+.drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.drawer-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    background-color: var(--surface-color);
+    box-shadow: var(--shadow-elevated);
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    overflow-y: auto;
+}
+
+.drawer.active {
+    transform: translateX(0);
+}
+
+.drawer-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 24px 16px;
+}
+
+.drawer-header h2 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.drawer-menu {
+    list-style: none;
+    padding: 8px 0;
+}
+
+.drawer-menu li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.drawer-menu li:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.nav-icon {
+    font-size: 24px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Views */
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+/* Search Container */
+.search-container {
+    margin-bottom: 16px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: var(--surface-color);
+    transition: border-color 0.2s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Timestamp */
+.timestamp {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* Station List */
+.station-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.station-card {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+.station-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elevated);
+}
+
+.station-card.pinned {
+    border-left: 4px solid var(--accent-color);
+}
+
+.station-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.station-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.pin-indicator {
+    font-size: 20px;
+}
+
+.station-code {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.swipe-hint {
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Station Detail */
+.back-button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+
+.station-detail-header {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+}
+
+.station-detail-header h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.station-id {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Pull to Refresh */
+.pull-to-refresh {
+    text-align: center;
+    padding: 16px;
+    color: var(--text-secondary);
+    display: none;
+}
+
+.pull-indicator {
+    font-size: 14px;
+}
+
+/* Train List */
+.train-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.platform-group {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+.platform-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.train-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.train-item:last-child {
+    border-bottom: none;
+}
+
+.train-info {
+    flex: 1;
+}
+
+.train-route {
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.train-destination {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.train-car-type {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.train-eta {
+    text-align: right;
+}
+
+.eta-time {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--success-color);
+}
+
+.eta-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* Route Mode */
+.route-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    min-height: 500px;
+}
+
+.route-list-panel, .route-detail-panel {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+.route-list-panel h3 {
+    margin-bottom: 16px;
+}
+
+.route-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.route-item {
+    padding: 12px;
+    border: 2px solid var(--divider-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-item:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(25, 118, 210, 0.04);
+}
+
+.route-item.active {
+    border-color: var(--primary-color);
+    background-color: rgba(25, 118, 210, 0.08);
+}
+
+.route-number {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--primary-color);
+}
+
+.route-direction-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px;
+    transition: transform 0.3s;
+}
+
+.route-direction-toggle:hover {
+    transform: scale(1.2);
+}
+
+.route-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+.route-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+}
+
+.route-stations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.route-station-item {
+    padding: 16px;
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.route-station-item:hover {
+    background-color: rgba(25, 118, 210, 0.04);
+    border-color: var(--primary-color);
+}
+
+.route-station-name {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.route-train-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.route-train-badge {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Settings View */
+.settings-container {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    max-width: 600px;
+}
+
+.setting-item {
+    margin-bottom: 24px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.setting-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: var(--surface-color);
+}
+
+.setting-button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.setting-button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Loading Indicator */
+.loading-indicator {
+    text-align: center;
+    padding: 40px;
+}
+
+.spinner {
+    border: 4px solid var(--divider-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+    background-color: var(--error-color);
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+/* No Trains Message */
+.no-trains-message {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+/* Hidden */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .route-container {
+        grid-template-columns: 1fr;
+    }
+
+    .route-list-panel {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .toolbar {
+        padding: 12px;
+    }
+
+    #toolbar-title {
+        font-size: 18px;
+    }
+
+    .main-content {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .station-name {
+        font-size: 16px;
+    }
+
+    .station-detail-header h2 {
+        font-size: 20px;
+    }
+
+    .train-route {
+        font-size: 14px;
+    }
+
+    .eta-time {
+        font-size: 16px;
+    }
+}

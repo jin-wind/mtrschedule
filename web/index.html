@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MTR Light Rail Schedule - Real-time train schedules for Hong Kong Light Rail">
+    <meta name="theme-color" content="#1976d2">
+    <title>MTR Light Rail Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <!-- Navigation Drawer -->
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+    <nav id="drawer" class="drawer">
+        <div class="drawer-header">
+            <h2>MTR Schedule</h2>
+        </div>
+        <ul class="drawer-menu">
+            <li data-nav="home">
+                <span class="nav-icon">🏠</span>
+                <span>Home</span>
+            </li>
+            <li data-nav="routes">
+                <span class="nav-icon">🚊</span>
+                <span>Routes</span>
+            </li>
+            <li data-nav="settings">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Toolbar -->
+        <header class="toolbar">
+            <button id="menu-btn" class="menu-button" aria-label="Menu">☰</button>
+            <h1 id="toolbar-title">MTR Light Rail</h1>
+            <button id="settings-btn" class="icon-button" aria-label="Settings">⚙️</button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Station List View -->
+            <div id="station-list-view" class="view active">
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search stations...">
+                </div>
+                <div class="timestamp" id="timestamp">Last updated: --</div>
+                <div id="station-list" class="station-list"></div>
+                <div id="loading-indicator" class="loading-indicator hidden">
+                    <div class="spinner"></div>
+                    <p>Loading...</p>
+                </div>
+                <div id="error-message" class="error-message hidden"></div>
+            </div>
+
+            <!-- Station Detail View -->
+            <div id="station-detail-view" class="view">
+                <button id="back-btn" class="back-button">← Back</button>
+                <div class="station-detail-header">
+                    <h2 id="station-name">Station Name</h2>
+                    <p id="station-id" class="station-id">Station ID: --</p>
+                </div>
+                <div class="pull-to-refresh" id="pull-to-refresh">
+                    <div class="pull-indicator">Pull to refresh</div>
+                </div>
+                <div id="train-list" class="train-list"></div>
+                <div id="no-trains-message" class="no-trains-message hidden">
+                    No trains scheduled at this time
+                </div>
+            </div>
+
+            <!-- Route Mode View -->
+            <div id="route-mode-view" class="view">
+                <div class="route-container">
+                    <div class="route-list-panel">
+                        <h3>Light Rail Routes</h3>
+                        <div id="route-list" class="route-list"></div>
+                    </div>
+                    <div class="route-detail-panel">
+                        <div id="route-detail-placeholder" class="route-placeholder">
+                            Select a route to view stations
+                        </div>
+                        <div id="route-stations-container" class="route-stations-container hidden">
+                            <div id="route-title" class="route-title"></div>
+                            <div id="route-stations-list" class="route-stations-list"></div>
+                        </div>
+                        <div id="route-loading" class="loading-indicator hidden">
+                            <div class="spinner"></div>
+                            <p>Loading route data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="view">
+                <h2>Settings</h2>
+                <div class="settings-container">
+                    <div class="setting-item">
+                        <label for="language-select">Language / 語言</label>
+                        <select id="language-select" class="setting-select">
+                            <option value="zh-HK">繁體中文</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="default-station-select">Default Station</label>
+                        <select id="default-station-select" class="setting-select">
+                            <option value="">None</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <button id="reset-pinned-btn" class="setting-button">Reset Pinned Stations</button>
+                    </div>
+                    <div class="setting-item">
+                        <button id="clear-cache-btn" class="setting-button">Clear Cache</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data/routes.js"></script>
+    <script src="data/stations.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
