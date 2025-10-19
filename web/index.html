@@ -31,10 +31,15 @@
             <div class="station-detail">
                 <h2 id="stationName"></h2>
                 <p id="stationCode" class="station-code"></p>
-                
-                <div id="trainsContainer">
+
+                <div id="trainModeContainer" class="hidden">
                     <div id="noTrainsText" class="no-trains hidden">No trains available</div>
                     <div id="trainsList" class="trains-list"></div>
+                </div>
+
+                <div id="routeModeContainer" class="hidden">
+                    <div id="noRoutesText" class="no-trains hidden">No trains available</div>
+                    <div id="routeGroupsList" class="route-groups"></div>
                 </div>
             </div>
         </div>
@@ -47,10 +52,19 @@
                     <button id="closeModalBtn" class="close-btn">×</button>
                 </div>
                 <div class="modal-body">
-                    <label for="defaultStation">Default Station:</label>
-                    <select id="defaultStation" class="station-select">
-                        <option value="">Select a station...</option>
-                    </select>
+                    <div class="form-group">
+                        <label for="defaultStation">Default Station:</label>
+                        <select id="defaultStation" class="station-select">
+                            <option value="">Select a station...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="displayMode">Default View Mode:</label>
+                        <select id="displayMode" class="station-select">
+                            <option value="route">Route Mode</option>
+                            <option value="train">Train Mode</option>
+                        </select>
+                    </div>
                     <button id="saveSettingsBtn" class="btn btn-primary">Save Settings</button>
                 </div>
             </div>

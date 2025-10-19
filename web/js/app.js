@@ -1,9 +1,11 @@
 // Main Application
 class MtrScheduleApp {
     constructor() {
-        this.currentView = 'list'; // 'list' or 'detail'
-        this.currentStation = null;
-        this.defaultStationId = localStorage.getItem('defaultStation') || '240';
+    this.currentView = 'list'; // 'list' or 'detail'
+    this.currentStation = null;
+    this.defaultStationId = localStorage.getItem('defaultStation') || '240';
+    const savedMode = localStorage.getItem('displayMode');
+    this.detailMode = savedMode === 'train' ? 'train' : 'route';
         
         this.initElements();
         this.initEventListeners();
@@ -23,6 +25,11 @@ class MtrScheduleApp {
         this.stationCode = document.getElementById('stationCode');
         this.trainsList = document.getElementById('trainsList');
         this.noTrainsText = document.getElementById('noTrainsText');
+        this.trainModeContainer = document.getElementById('trainModeContainer');
+        this.routeModeContainer = document.getElementById('routeModeContainer');
+    this.routeGroupsList = document.getElementById('routeGroupsList');
+    this.noRoutesText = document.getElementById('noRoutesText');
+    this.displayModeSelect = document.getElementById('displayMode');
         
         // UI elements
         this.timestampText = document.getElementById('timestampText');
@@ -30,9 +37,9 @@ class MtrScheduleApp {
         this.errorText = document.getElementById('errorText');
         
         // Buttons
-        this.refreshBtn = document.getElementById('refreshBtn');
-        this.settingsBtn = document.getElementById('settingsBtn');
-        this.backBtn = document.getElementById('backBtn');
+    this.refreshBtn = document.getElementById('refreshBtn');
+    this.settingsBtn = document.getElementById('settingsBtn');
+    this.backBtn = document.getElementById('backBtn');
         
         // Settings modal
         this.settingsModal = document.getElementById('settingsModal');
@@ -46,7 +53,7 @@ class MtrScheduleApp {
         this.settingsBtn.addEventListener('click', () => this.openSettings());
         this.backBtn.addEventListener('click', () => this.showStationList());
         this.closeModalBtn.addEventListener('click', () => this.closeSettings());
-        this.saveSettingsBtn.addEventListener('click', () => this.saveSettings());
+    this.saveSettingsBtn.addEventListener('click', () => this.saveSettings());
         
         // Close modal on outside click
         this.settingsModal.addEventListener('click', (e) => {
@@ -108,33 +115,7 @@ class MtrScheduleApp {
     renderStationDetail(data) {
         this.stationName.textContent = data.stationName;
         this.stationCode.textContent = `Station Code: ${data.stationCode}`;
-        
-        this.trainsList.innerHTML = '';
-        
-        if (data.trains.length === 0) {
-            this.noTrainsText.classList.remove('hidden');
-            this.trainsList.classList.add('hidden');
-        } else {
-            this.noTrainsText.classList.add('hidden');
-            this.trainsList.classList.remove('hidden');
-            
-            data.trains.forEach(train => {
-                const trainItem = document.createElement('div');
-                trainItem.className = 'train-item';
-                trainItem.innerHTML = `
-                    <div class="train-route">${train.routeNumber}</div>
-                    <div class="train-info">
-                        <div class="train-destination">${train.destination}</div>
-                        <div class="train-platform">Platform ${train.platform}</div>
-                    </div>
-                    <div class="train-eta">
-                        <div class="train-time">${train.eta}</div>
-                        <div class="train-minutes">${this.formatTimeToArrival(train.timeToArrival)}</div>
-                    </div>
-                `;
-                this.trainsList.appendChild(trainItem);
-            });
-        }
+        this.renderCurrentDetailMode(data);
     }
     
     formatTimeToArrival(minutes) {
@@ -145,6 +126,16 @@ class MtrScheduleApp {
         } else {
             return `${minutes} minutes`;
         }
+    }
+
+    formatRouteMinutesLabel(minutes) {
+        if (typeof minutes !== 'number' || Number.isNaN(minutes) || minutes < 0) {
+            return '--';
+        }
+        if (minutes === 0) {
+            return '即將到站';
+        }
+        return `${minutes} 分鐘`;
     }
     
     showStationList() {
@@ -207,6 +198,10 @@ class MtrScheduleApp {
             this.defaultStationSelect.appendChild(option);
         });
         
+        if (this.displayModeSelect) {
+            this.displayModeSelect.value = this.detailMode;
+        }
+
         this.settingsModal.classList.remove('hidden');
     }
     
@@ -216,15 +211,156 @@ class MtrScheduleApp {
     
     saveSettings() {
         const selectedStation = this.defaultStationSelect.value;
+        const selectedMode = this.displayModeSelect ? this.displayModeSelect.value : this.detailMode;
         
         if (selectedStation) {
             this.defaultStationId = selectedStation;
             localStorage.setItem('defaultStation', selectedStation);
-            this.closeSettings();
-            
             // Reload with new default station
             this.loadStationDetail(selectedStation);
         }
+
+        if (selectedMode === 'train' || selectedMode === 'route') {
+            this.detailMode = selectedMode;
+            localStorage.setItem('displayMode', selectedMode);
+            if (this.currentStation) {
+                this.renderCurrentDetailMode(this.currentStation);
+            }
+        }
+
+        this.closeSettings();
+    }
+
+    renderCurrentDetailMode(data) {
+        if (this.detailMode === 'route') {
+            this.renderRouteGroups(data.trains);
+        } else {
+            this.renderTrainList(data.trains);
+        }
+    }
+
+    renderTrainList(trains) {
+        this.trainModeContainer.classList.remove('hidden');
+        this.routeModeContainer.classList.add('hidden');
+        this.trainsList.innerHTML = '';
+        this.routeGroupsList.innerHTML = '';
+        this.noRoutesText.classList.add('hidden');
+
+        if (trains.length === 0) {
+            this.noTrainsText.classList.remove('hidden');
+            this.trainsList.classList.add('hidden');
+            return;
+        }
+
+        this.noTrainsText.classList.add('hidden');
+        this.trainsList.classList.remove('hidden');
+
+        trains.forEach(train => {
+            const trainItem = document.createElement('div');
+            trainItem.className = 'train-item';
+            trainItem.innerHTML = `
+                <div class="train-route">${train.routeNumber}</div>
+                <div class="train-info">
+                    <div class="train-destination">${train.destination}</div>
+                    <div class="train-platform">Platform ${train.platform}</div>
+                </div>
+                <div class="train-eta">
+                    <div class="train-time">${train.eta}</div>
+                    <div class="train-minutes">${this.formatTimeToArrival(train.timeToArrival)}</div>
+                </div>
+            `;
+            this.trainsList.appendChild(trainItem);
+        });
+    }
+
+    renderRouteGroups(trains) {
+        this.routeModeContainer.classList.remove('hidden');
+        this.trainModeContainer.classList.add('hidden');
+        this.routeGroupsList.innerHTML = '';
+        this.noTrainsText.classList.add('hidden');
+
+        if (trains.length === 0) {
+            this.noRoutesText.classList.remove('hidden');
+            this.routeGroupsList.classList.add('hidden');
+            return;
+        }
+
+        this.noRoutesText.classList.add('hidden');
+        this.routeGroupsList.classList.remove('hidden');
+
+        const platformMap = new Map();
+        trains.forEach(train => {
+            if (!platformMap.has(train.platform)) {
+                platformMap.set(train.platform, []);
+            }
+            platformMap.get(train.platform).push(train);
+        });
+
+        const sortedPlatforms = Array.from(platformMap.keys()).sort((a, b) => (
+            String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' })
+        ));
+
+        sortedPlatforms.forEach(platformId => {
+            const platformElement = document.createElement('div');
+            platformElement.className = 'platform-group';
+
+            const platformTrains = platformMap.get(platformId).sort((a, b) => a.timeToArrival - b.timeToArrival);
+            const directionLabel = this.buildPlatformDirection(platformTrains);
+
+            const platformHeader = document.createElement('div');
+            platformHeader.className = 'platform-header';
+            platformHeader.innerHTML = `
+                <div class="platform-title">月臺 ${platformId}</div>
+                <div class="platform-direction">${directionLabel}</div>
+            `;
+            platformElement.appendChild(platformHeader);
+
+            const trainsGrid = document.createElement('div');
+            trainsGrid.className = 'trains-grid';
+
+            platformTrains.forEach(train => {
+                const minutesLabel = this.formatRouteMinutesLabel(train.timeToArrival);
+                const trainCard = document.createElement('div');
+                trainCard.className = 'train-card';
+                trainCard.innerHTML = `
+                    <div class="train-card-route">${train.routeNumber || '--'}</div>
+                    <div class="train-card-minutes">${minutesLabel}</div>
+                `;
+                trainsGrid.appendChild(trainCard);
+            });
+
+            platformElement.appendChild(trainsGrid);
+            this.routeGroupsList.appendChild(platformElement);
+        });
+    }
+
+    buildPlatformDirection(trains) {
+        if (!Array.isArray(trains) || trains.length === 0) {
+            return '暫無班次資料';
+        }
+
+        const seen = new Set();
+        const destinations = [];
+
+        trains.forEach(train => {
+            const destination = (train.destination || '').trim();
+            if (!destination) {
+                return;
+            }
+            if (!seen.has(destination)) {
+                seen.add(destination);
+                destinations.push(destination);
+            }
+        });
+
+        if (destinations.length === 0) {
+            return '目的地資料暫缺';
+        }
+
+        const maxDestinations = 3;
+        const primaryList = destinations.slice(0, maxDestinations).join(' / ');
+        const suffix = destinations.length > maxDestinations ? ' …' : '';
+        return `往 ${primaryList}${suffix}`;
     }
 }
 

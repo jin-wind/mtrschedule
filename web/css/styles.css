@@ -64,15 +64,15 @@ header h1 {
 }
 
 .timestamp {
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     background-color: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: #6c757d;
 }
 
 .view {
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1rem;
 }
 
 .hidden {
@@ -146,10 +146,10 @@ header h1 {
     background: none;
     border: none;
     color: #667eea;
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
-    padding: 0.5rem 0;
-    margin-bottom: 1rem;
+    padding: 0.35rem 0;
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -161,15 +161,98 @@ header h1 {
 }
 
 .station-detail h2 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
     color: #333;
 }
 
 .station-code {
     color: #6c757d;
-    font-size: 0.875rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.route-groups {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.platform-group {
+    padding: 0.75rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f6f7ff 100%);
+    border: 1px solid #dfe2ff;
+    border-radius: 10px;
+    box-shadow: 0 6px 14px rgba(102, 126, 234, 0.08);
+    display: grid;
+    gap: 0.65rem;
+}
+
+.platform-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.25rem;
+    border-bottom: 1px solid rgba(118, 75, 162, 0.08);
+    padding-bottom: 0.4rem;
+}
+
+.platform-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4a4de2;
+}
+
+.platform-direction {
+    font-size: 0.78rem;
+    color: #5358a6;
+    padding: 0 0.25rem;
+    font-weight: 500;
+    text-align: right;
+}
+
+.platform-subtitle {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+.trains-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+    gap: 0.6rem;
+}
+
+.train-card {
+    background: linear-gradient(150deg, #eef1ff 0%, #ffffff 100%);
+    border: 1px solid rgba(102, 126, 234, 0.35);
+    border-radius: 12px;
+    padding: 0.7rem 0.55rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.12);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.train-card-route {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2f36a4;
+    line-height: 1.05;
+}
+
+.train-card-minutes {
+    font-size: 0.78rem;
+    color: #41435d;
+    text-align: center;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.train-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(102, 126, 234, 0.16);
 }
 
 /* Trains List */
@@ -305,13 +388,21 @@ header h1 {
     font-weight: 500;
 }
 
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group:last-of-type {
+    margin-bottom: 1.5rem;
+}
+
 .station-select {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #e9ecef;
     border-radius: 4px;
     font-size: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
 }
 
 .btn {
@@ -345,7 +436,7 @@ header h1 {
     }
 
     .view {
-        padding: 1rem;
+        padding: 0.85rem;
     }
 
     .train-item {
@@ -363,5 +454,22 @@ header h1 {
 
     .train-time {
         font-size: 1rem;
+    }
+
+    .platform-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .platform-direction {
+        text-align: left;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .trains-grid {
+        grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+        gap: 0.45rem;
     }
 }
