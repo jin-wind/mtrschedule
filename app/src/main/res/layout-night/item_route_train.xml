@@ -34,7 +34,15 @@
                 android:textStyle="bold"
                 tools:text="505" />
 
-            <!-- 删除了车厢类型图标 -->
+            <ImageView
+                android:id="@+id/carIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_marginStart="4dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/train_car_icon_content_description"
+                android:src="@drawable/ic_train_single"
+                tools:src="@drawable/ic_train_double" />
         </LinearLayout>
 
         <!-- 下方区域：到达时间 -->
