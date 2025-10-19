@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTR 輕鐵車表 - Demo</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MTR 輕鐵車表</h1>
+            <div class="header-actions">
+                <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
+                <button id="refreshBtn" class="icon-btn" title="Refresh">🔄</button>
+            </div>
+        </header>
+
+        <div id="timestampText" class="timestamp">Last updated: 2025-10-19 04:36:09</div>
+
+        <!-- Station Detail View with Sample Data -->
+        <div id="stationDetailView" class="view">
+            <button id="backBtn" class="back-btn">← Back to Stations</button>
+            <div class="station-detail">
+                <h2 id="stationName">兆禧</h2>
+                <p id="stationCode" class="station-code">Station Code: 240</p>
+                
+                <div id="trainsContainer">
+                    <div id="trainsList" class="trains-list">
+                        <div class="train-item">
+                            <div class="train-route">610</div>
+                            <div class="train-info">
+                                <div class="train-destination">屯門碼頭</div>
+                                <div class="train-platform">Platform 1</div>
+                            </div>
+                            <div class="train-eta">
+                                <div class="train-time">即將抵達</div>
+                                <div class="train-minutes">Arriving</div>
+                            </div>
+                        </div>
+
+                        <div class="train-item">
+                            <div class="train-route">614</div>
+                            <div class="train-info">
+                                <div class="train-destination">元朗</div>
+                                <div class="train-platform">Platform 2</div>
+                            </div>
+                            <div class="train-eta">
+                                <div class="train-time">3 分鐘</div>
+                                <div class="train-minutes">3 minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="train-item">
+                            <div class="train-route">615</div>
+                            <div class="train-info">
+                                <div class="train-destination">屯門</div>
+                                <div class="train-platform">Platform 1</div>
+                            </div>
+                            <div class="train-eta">
+                                <div class="train-time">5 分鐘</div>
+                                <div class="train-minutes">5 minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="train-item">
+                            <div class="train-route">751</div>
+                            <div class="train-info">
+                                <div class="train-destination">天逸</div>
+                                <div class="train-platform">Platform 2</div>
+                            </div>
+                            <div class="train-eta">
+                                <div class="train-time">7 分鐘</div>
+                                <div class="train-minutes">7 minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="train-item">
+                            <div class="train-route">610</div>
+                            <div class="train-info">
+                                <div class="train-destination">屯門碼頭</div>
+                                <div class="train-platform">Platform 1</div>
+                            </div>
+                            <div class="train-eta">
+                                <div class="train-time">10 分鐘</div>
+                                <div class="train-minutes">10 minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="train-item">
+                            <div class="train-route">614</div>
+                            <div class="train-info">
+                                <div class="train-destination">元朗</div>
+                                <div class="train-platform">Platform 2</div>
+                            </div>
+                            <div class="train-eta">
+                                <div class="train-time">12 分鐘</div>
+                                <div class="train-minutes">12 minutes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo mode - no API calls
+        document.getElementById('backBtn').addEventListener('click', () => {
+            alert('This is a demo page showing the UI design. Use index.html for the full application.');
+        });
+        
+        document.getElementById('settingsBtn').addEventListener('click', () => {
+            alert('This is a demo page. Use index.html for the full application with settings.');
+        });
+        
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            alert('This is a demo page. Use index.html for the full application with live data.');
+        });
+    </script>
+</body>
+</html>
