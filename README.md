@@ -2,6 +2,23 @@
 
 一款中學生打造嘅輕鐵時刻表 App，提供即時班次、路線模式、站點收藏等功能。
 
+## 🆕 Windows Desktop Widget (Python)
+
+本項目新增了 **Windows 桌面小工具**，使用 Python 開發，可在 Windows、Linux 和 macOS 上運行！
+
+- 📍 **路徑**: `windows-widget/`
+- 🚀 **快速開始**: 
+  ```bash
+  cd windows-widget
+  pip install -r requirements.txt
+  python main.py
+  ```
+- 📖 **詳細文檔**: 查看 [`windows-widget/README.md`](windows-widget/README.md)
+
+**功能特點**：雙平台顯示、自動刷新、68個輕鐵站點、MVVM架構、異步API調用
+
+---
+
 ## 功能特色
 - **卡片模式**：顯示各個車站下一班及後備班次，支援骨架載入效果。
 - **路線模式**：按路線瀏覽所有沿線車站，支援正逆方向切換及列車卡片動畫。
@@ -41,6 +58,7 @@
 - `app/src/main/res/drawable/`：自訂背景、圖示與動畫資源。
 - `app/src/main/res/values/`：色盤、字串、樣式與主題。
 - `app/src/main/res/mipmap-*/`：應用圖示（目前以提供嘅照片為主題）。
+- `windows-widget/`：**Python 桌面小工具**（新增），支援 Windows/Linux/macOS。
 
 ## 測試
 - 單元測試入口：`app/src/test/java`。
