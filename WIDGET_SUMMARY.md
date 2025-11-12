@@ -74,10 +74,17 @@ cd html-widget
 
 ---
 
-## 🔧 方案 B: Windows 11 原生小組件
+## 🔧 方案 B: Windows 11 原生小組件 (概念驗證)
 
-### 為什麼提供這個？
-對於需要真正整合到 Windows 11 小組件面板的用戶。
+### ⚠️ 重要提示
+**此方案目前無法編譯和使用。** Windows Widgets API (`Microsoft.Windows.Widgets`) 在公開 NuGet 源中不可用。
+
+這是一個概念驗證專案，為未來 Windows Widgets API 公開發布做準備。
+
+### 為什麼包含這個？
+1. 展示如何設計 Windows 11 原生小組件
+2. 當 API 可用時可以快速適配
+3. 提供參考架構和代碼結構
 
 ### 位置
 ```
@@ -95,22 +102,21 @@ MTRWidget/
 - C# + .NET 8.0
 - Windows App SDK 1.6
 - Adaptive Cards UI
-- Windows Widget Provider API
+- Windows Widget Provider API (概念代碼)
 
-### 要求
-- Windows 11（22H2 或更高）
-- .NET 8.0 SDK
-- 開發者模式（測試時）
+### 當前狀態
+⚠️ **無法編譯** - `Microsoft.Windows.Widgets` 套件不存在於公開 NuGet 源
 
 ### 使用方法
 ```bash
+# 當 API 可用時：
 cd MTRWidget
-dotnet restore
-dotnet build
+dotnet restore  # 目前會失敗
+dotnet build    # 目前會失敗
 dotnet run
 ```
 
-然後在 Windows 11 的小組件面板中添加「MTR 輕鐵時刻表」。
+**注意**: 此專案目前僅作為概念驗證和未來準備。請使用方案 A (HTML 版本)。
 
 ---
 
@@ -118,14 +124,15 @@ dotnet run
 
 | 功能 | HTML 小組件 | Windows 11 小組件 |
 |------|------------|------------------|
-| 立即可用 | ✅ | ❌（需要建置） |
+| 立即可用 | ✅ | ❌（API 未公開） |
 | 跨平台 | ✅ | ❌（僅 Windows 11） |
-| UI 美觀 | ✅ | ✅ |
-| 固定桌面 | ✅ | ✅（小組件面板） |
-| 雙月台顯示 | ✅ | ✅ |
-| 自動刷新 | ✅ | ✅ |
-| 68 個車站 | ✅ | ✅ |
-| 需要安裝 | ❌ | ✅（.NET SDK） |
+| UI 美觀 | ✅ | ✅（設計完成） |
+| 固定桌面 | ✅ | ✅（設計完成） |
+| 雙月台顯示 | ✅ | ✅（設計完成） |
+| 自動刷新 | ✅ | ✅（設計完成） |
+| 68 個車站 | ✅ | ✅（設計完成） |
+| 需要安裝 | ❌ | ✅（.NET SDK + 未來 API） |
+| 當前狀態 | **可用** | **概念驗證** |
 
 ---
 

@@ -4,7 +4,7 @@
 
 ## 🆕 桌面小組件 (Desktop Widgets)
 
-本項目現在提供**兩種桌面小組件實現方式**！
+本項目現在提供桌面小組件實現！
 
 ### 方案 A: HTML 桌面小組件 ⭐ 推薦
 
@@ -14,16 +14,20 @@
 - 🚀 **快速開始**: 雙擊 `html-widget/index.html` 即可使用
 - 🎨 **特點**: 現代化 UI、毛玻璃效果、流暢動畫
 - 🌐 **跨平台**: Windows、Linux、macOS
+- ✅ **狀態**: 完全可用，推薦使用
 - 📖 **詳細文檔**: 查看 [`html-widget/README.md`](html-widget/README.md)
 
-### 方案 B: Windows 11 原生小組件
+### 方案 B: Windows 11 原生小組件 (概念驗證)
 
-使用 Windows App SDK 的真正 Windows 11 小組件（需要開發環境）。
+基於 Windows App SDK 的概念驗證專案。
 
 - 📍 **路徑**: `MTRWidget/`
 - 🔧 **技術**: C# + Windows App SDK
-- 📋 **要求**: Windows 11 + .NET 8.0
+- ⚠️ **狀態**: Windows Widgets API 尚未公開，無法編譯
+- 💡 **用途**: 為未來 API 發布做準備的概念代碼
 - 📖 **詳細文檔**: 查看 [`MTRWidget/README.md`](MTRWidget/README.md)
+
+**注意**: Windows Widgets API (`Microsoft.Windows.Widgets`) 目前在公開 NuGet 源中不可用。請使用方案 A (HTML 版本)。
 
 ### ~~方案 C: Python tkinter 版本~~ (已棄用)
 
