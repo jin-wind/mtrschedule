@@ -2,20 +2,33 @@
 
 一款中學生打造嘅輕鐵時刻表 App，提供即時班次、路線模式、站點收藏等功能。
 
-## 🆕 Windows Desktop Widget (Python)
+## 🆕 桌面小組件 (Desktop Widgets)
 
-本項目新增了 **Windows 桌面小工具**，使用 Python 開發，可在 Windows、Linux 和 macOS 上運行！
+本項目現在提供**兩種桌面小組件實現方式**！
+
+### 方案 A: HTML 桌面小組件 ⭐ 推薦
+
+美觀、輕量級的 HTML/CSS/JavaScript 小組件，**立即可用**！
+
+- 📍 **路徑**: `html-widget/`
+- 🚀 **快速開始**: 雙擊 `html-widget/index.html` 即可使用
+- 🎨 **特點**: 現代化 UI、毛玻璃效果、流暢動畫
+- 🌐 **跨平台**: Windows、Linux、macOS
+- 📖 **詳細文檔**: 查看 [`html-widget/README.md`](html-widget/README.md)
+
+### 方案 B: Windows 11 原生小組件
+
+使用 Windows App SDK 的真正 Windows 11 小組件（需要開發環境）。
+
+- 📍 **路徑**: `MTRWidget/`
+- 🔧 **技術**: C# + Windows App SDK
+- 📋 **要求**: Windows 11 + .NET 8.0
+- 📖 **詳細文檔**: 查看 [`MTRWidget/README.md`](MTRWidget/README.md)
+
+### ~~方案 C: Python tkinter 版本~~ (已棄用)
 
 - 📍 **路徑**: `windows-widget/`
-- 🚀 **快速開始**: 
-  ```bash
-  cd windows-widget
-  pip install -r requirements.txt
-  python main.py
-  ```
-- 📖 **詳細文檔**: 查看 [`windows-widget/README.md`](windows-widget/README.md)
-
-**功能特點**：雙平台顯示、自動刷新、68個輕鐵站點、MVVM架構、異步API調用
+- ⚠️ **狀態**: 已被更好的 HTML 版本取代
 
 ---
 
