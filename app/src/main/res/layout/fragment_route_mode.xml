@@ -7,18 +7,46 @@
     android:background="@color/background">
 
     <!-- 左侧路线选择区域 - 占屏幕1/5宽度 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/route_list_recycler_view"
+    <LinearLayout
+        android:id="@+id/left_column"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-    android:background="@color/background_alt"
-        android:layoutAnimation="@anim/layout_fade_slide_up"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+        android:orientation="vertical"
+        android:background="@color/background_alt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.2" />
+        app:layout_constraintWidth_percent="0.2">
+
+        <RadioGroup
+            android:id="@+id/mode_toggle_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="4dp">
+            <RadioButton
+                android:id="@+id/btn_lrt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LRT"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/btn_bus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bus"/>
+        </RadioGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/route_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layoutAnimation="@anim/layout_fade_slide_up"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+    </LinearLayout>
 
     <!-- 右侧路线详情区域 - 占屏幕4/5宽度 -->
     <FrameLayout

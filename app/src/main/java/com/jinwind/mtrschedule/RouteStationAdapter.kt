@@ -45,6 +45,17 @@ class RouteStationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val stationIdTextView: TextView = itemView.findViewById(R.id.station_id)
         private val trainRecyclerView: RecyclerView = itemView.findViewById(R.id.station_trains_recycler_view)
         private val noTrainsTextView: TextView = itemView.findViewById(R.id.no_trains_text)
+        private val trainAdapter = RouteTrainAdapter()
+
+        init {
+            // 设置列车列表 - 使用RouteTrainAdapter，并且设置为水平滚动
+            trainRecyclerView.layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            trainRecyclerView.adapter = trainAdapter
+            
+            // 优化RecyclerView性能
+            trainRecyclerView.setHasFixedSize(true)
+            trainRecyclerView.itemAnimator = null
+        }
 
         fun bind(station: Station) {
             // 设置站台名称和ID
@@ -60,11 +71,6 @@ class RouteStationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             stationIdTextView.setOnClickListener {
                 onStationClickListener?.invoke(station.stationId)
             }
-
-            // 设置列车列表 - 使用RouteTrainAdapter，并且设置为水平滚动
-            val trainAdapter = RouteTrainAdapter()
-            trainRecyclerView.layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
-            trainRecyclerView.adapter = trainAdapter
 
             // 根据站台名称应用不同的过滤逻辑
             val filteredTrains = when {
@@ -180,6 +186,11 @@ class RouteStationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // 辅助方法：根据站台号过滤列车
     private fun filterTrainsByPlatform(trains: List<Train>, platformNumber: String): List<Train> {
+        // 如果是巴士模式（platform为空），则不进行过滤
+        if (trains.isNotEmpty() && trains.all { it.platform.isEmpty() }) {
+            return trains
+        }
+        
         return trains.filter { train ->
             train.platform == platformNumber ||
             train.platform == "站台$platformNumber" ||
@@ -221,6 +232,13 @@ class RouteStationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun submitList(stations: List<Station>) {
         this.stations = stations
+        notifyDataSetChanged()
+    }
+    
+    // Update data and loading state in one go to prevent double refresh
+    fun updateData(stations: List<Station>, isLoading: Boolean) {
+        this.stations = stations
+        this.isLoading = isLoading
         notifyDataSetChanged()
     }
 

@@ -6,7 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jinwind.mtrschedule.data.BusStopMap
 import com.jinwind.mtrschedule.data.LightRailRouteData
+
 import com.jinwind.mtrschedule.model.Station
 import com.jinwind.mtrschedule.repository.TrainScheduleRepository
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +30,10 @@ class TrainScheduleViewModel(private val app: Application) : ViewModel() {
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
+
+    // Bus schedule LiveData
+    private val _busSchedule = MutableLiveData<List<Station>>()
+    val busSchedule: LiveData<List<Station>> = _busSchedule
 
     private val PREFS_NAME = "AppPreferences"
     private val PREFS_PINNED_KEY = "pinned_station_ids"
@@ -313,5 +319,45 @@ class TrainScheduleViewModel(private val app: Application) : ViewModel() {
         val current = _stationSchedules.value ?: return
         val updated = current.map { it.copy(isPinned = false) }
         _stationSchedules.value = updated
+    }
+
+    fun getBusSchedule(routeName: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            val result = repository.getBusSchedule(routeName)
+            if (result.isSuccess) {
+                val response = result.getOrNull()
+                val stations = response?.busStop?.map { busStop ->
+                    Station(
+                        stationId = busStop.busStopId,
+                        stationCode = busStop.busStopId,
+                        stationName = BusStopMap.getName(busStop.busStopId),
+                        nextTrains = busStop.bus?.map { busTime ->
+                            // Use departure time if arrival time is empty (e.g. at terminus)
+                            val timeText = if (!busTime.arrivalTimeText.isNullOrEmpty()) {
+                                busTime.arrivalTimeText
+                            } else {
+                                busTime.departureTimeText ?: ""
+                            }
+                            
+                            com.jinwind.mtrschedule.model.Train(
+                                trainId = busTime.busId ?: "",
+                                routeNumber = routeName,
+                                destination = "",
+                                platform = "",
+                                eta = timeText,
+                                timeToArrival = 0, // TODO: Parse time
+                                timestamp = "",
+                                isDoubleCar = false
+                            )
+                        } ?: emptyList()
+                    )
+                } ?: emptyList()
+                _busSchedule.value = stations
+            } else {
+                _error.value = result.exceptionOrNull()?.message ?: "Failed to get bus schedule"
+            }
+            _isLoading.value = false
+        }
     }
 }

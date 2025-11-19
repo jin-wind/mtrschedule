@@ -50,6 +50,7 @@ class RouteTrainAdapter : ListAdapter<Train, RouteTrainAdapter.RouteTrainViewHol
 
             // 顯示到達時間
             timeText.text = when {
+                train.eta.isNotEmpty() -> train.eta // Use ETA string directly if available (for Bus)
                 train.timeToArrival == 0 -> itemView.context.getString(R.string.arriving)
                 train.timeToArrival == 1 -> "1分钟"
                 else -> itemView.context.getString(R.string.minutes_format, train.timeToArrival)

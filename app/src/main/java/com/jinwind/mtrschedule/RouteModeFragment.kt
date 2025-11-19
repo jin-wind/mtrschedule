@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jinwind.mtrschedule.data.BusRouteData
 import com.jinwind.mtrschedule.data.LightRailRouteData
 import com.jinwind.mtrschedule.model.Station
 
@@ -24,6 +27,9 @@ class RouteModeFragment : Fragment() {
     private lateinit var routeLoadingProgress: ProgressBar
     private lateinit var routeErrorText: TextView
     private lateinit var routeDirectionText: TextView
+    private lateinit var modeToggleGroup: RadioGroup
+    private lateinit var btnLrt: RadioButton
+    private lateinit var btnBus: RadioButton
 
     private lateinit var routeAdapter: RouteAdapter
     private lateinit var routeStationAdapter: RouteStationAdapter
@@ -35,11 +41,18 @@ class RouteModeFragment : Fragment() {
         "615", "615P", "705", "706", "751", "761P"
     )
 
+    // 定义巴士路线列表
+    private val busRoutes = listOf("K52", "K52A", "K52S", "K53", "K58", "506", "K51", "K51A")
+    private var isBusMode = false
+
     // 存储当前加载的站台列表
     private val stationMap: MutableMap<String, Station> = mutableMapOf()
 
     // 添加当前路线方向标志
     private var isCurrentRouteReverse = false
+    
+    // Store current bus stops for filtering
+    private var currentBusStops: List<String> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +75,10 @@ class RouteModeFragment : Fragment() {
         routeDetailPlaceholder = view.findViewById(R.id.route_detail_placeholder)
         routeLoadingProgress = view.findViewById(R.id.route_loading_progress)
         routeErrorText = view.findViewById(R.id.route_error_text)
-    routeDirectionText = view.findViewById(R.id.route_direction_text)
+        routeDirectionText = view.findViewById(R.id.route_direction_text)
+        modeToggleGroup = view.findViewById(R.id.mode_toggle_group)
+        btnLrt = view.findViewById(R.id.btn_lrt)
+        btnBus = view.findViewById(R.id.btn_bus)
 
         // 初始化ViewModel
         val factory = TrainScheduleViewModelFactory(requireActivity().application)
@@ -73,6 +89,17 @@ class RouteModeFragment : Fragment() {
 
         // 监听站点数据变化
         observeStationData()
+
+        // 设置模式切换监听
+        modeToggleGroup.setOnCheckedChangeListener { _, checkedId ->
+            isBusMode = (checkedId == R.id.btn_bus)
+            updateRouteList()
+            // Clear right side
+            routeDetailPlaceholder.visibility = View.VISIBLE
+            routeStationsRecyclerView.visibility = View.GONE
+            routeDirectionText.visibility = View.GONE
+            routeErrorText.visibility = View.GONE
+        }
     }
 
     private fun initializeRouteMode() {
@@ -91,6 +118,9 @@ class RouteModeFragment : Fragment() {
         // 设置站台列表适配器
         routeStationsRecyclerView.layoutManager = LinearLayoutManager(context)
         routeStationAdapter = RouteStationAdapter()
+        
+        // Disable item animator to prevent flickering
+        routeStationsRecyclerView.itemAnimator = null
 
         // 设置站台点击监听器，点击站名时跳转到卡片模式
         routeStationAdapter.setOnStationClickListener { stationId ->
@@ -151,6 +181,24 @@ class RouteModeFragment : Fragment() {
                 routeErrorText.visibility = View.GONE
             }
         }
+
+        // 监听巴士时刻表数据
+        viewModel.busSchedule.observe(viewLifecycleOwner) { stations ->
+            if (isBusMode && routeStationsRecyclerView.visibility == View.VISIBLE) {
+                // Filter and sort stations based on current direction
+                val orderedStations = if (currentBusStops.isNotEmpty()) {
+                    currentBusStops.mapNotNull { stopId ->
+                        stations.find { it.stationId == stopId }
+                    }
+                } else {
+                    stations
+                }
+                
+                // Update data and hide loading in one go
+                routeStationAdapter.updateData(orderedStations, false)
+                routeLoadingProgress.visibility = View.GONE
+            }
+        }
     }
 
     // 修改方法签名，添加isReverse参数
@@ -163,6 +211,25 @@ class RouteModeFragment : Fragment() {
         routeStationsRecyclerView.visibility = View.VISIBLE
         routeLoadingProgress.visibility = View.VISIBLE
         routeErrorText.visibility = View.GONE
+
+        if (isBusMode) {
+            val route = BusRouteData.getRoute(routeNumber, isReverse)
+            if (route != null) {
+                val titleText = "${route.startStation} → ${route.endStation}"
+                routeDirectionText.text = titleText
+                currentBusStops = route.stops
+            } else {
+                routeDirectionText.text = "Bus Route $routeNumber"
+                currentBusStops = emptyList()
+            }
+            
+            routeDirectionText.visibility = View.VISIBLE
+            
+            routeStationAdapter.setDirection(false) // Bus usually one way list in this API?
+            routeStationAdapter.showSkeletonLoading(true)
+            viewModel.getBusSchedule(routeNumber)
+            return
+        }
 
         // 获取路线信息
         val route = LightRailRouteData.getRoute(routeNumber) ?: return
@@ -221,18 +288,21 @@ class RouteModeFragment : Fragment() {
         // 监听站点数据变化
         viewModel.stationSchedules.observe(viewLifecycleOwner) { stations ->
             // 只有当数据加载完成并且UI仍然显示时才更新
-            if (routeStationsRecyclerView.visibility == View.VISIBLE) {
-                updateRouteStations(directionStations)
-                // 隐藏骨架屏加载效果
-                routeStationAdapter.showSkeletonLoading(false)
+            if (!isBusMode && routeStationsRecyclerView.visibility == View.VISIBLE) {
+                // Use updateData to handle both data and loading state
+                val routeStations = directionStations.mapNotNull { stationId -> stationMap[stationId] }
+                routeStationAdapter.updateData(routeStations, false)
+                routeLoadingProgress.visibility = View.GONE
             }
         }
 
         // 监听加载状态
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (!isLoading) {
-                // 加载完成，隐藏骨架屏
-                routeStationAdapter.showSkeletonLoading(false)
+            // Only handle loading state if we are NOT in bus mode or if it's an error case
+            // For success cases, the data observers handle the loading state to prevent double refresh
+            if (!isLoading && routeStationAdapter.itemCount == 0) {
+                 // If loading finished but no data (e.g. error), hide skeleton
+                 routeStationAdapter.showSkeletonLoading(false)
             }
         }
     }
@@ -242,7 +312,7 @@ class RouteModeFragment : Fragment() {
         val stations = stationIds.mapNotNull { stationId -> stationMap[stationId] }
 
         // 更新站台列表
-        routeStationAdapter.submitList(stations)
+        routeStationAdapter.updateData(stations, false)
 
         // 如果没有站台数据，显示加载中提示
         if (stations.isEmpty()) {
@@ -251,6 +321,11 @@ class RouteModeFragment : Fragment() {
             // 即使只有部分数据也显示
             routeLoadingProgress.visibility = View.GONE
         }
+    }
+
+    private fun updateRouteList() {
+        val routes = if (isBusMode) busRoutes else lightRailRoutes
+        routeAdapter.updateRoutes(routes)
     }
 
     companion object {

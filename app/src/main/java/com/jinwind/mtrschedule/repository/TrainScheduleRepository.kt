@@ -164,4 +164,28 @@ class TrainScheduleRepository {
             )
         }
     }
+
+    // Get bus schedule
+    suspend fun getBusSchedule(routeName: String, language: String = "zh"): Result<com.jinwind.mtrschedule.model.MtrBusResponse> = withContext(Dispatchers.IO) {
+        try {
+            Log.d(TAG, "Making API request to get bus schedule for route $routeName")
+            val request = com.jinwind.mtrschedule.model.MtrBusRequest(language, routeName)
+            val response = mtrApiService.getBusSchedule(request)
+            Log.d(TAG, "API response code: ${response.code()}")
+
+            if (response.isSuccessful) {
+                val apiResponse = response.body()
+                if (apiResponse != null) {
+                    return@withContext Result.success(apiResponse)
+                } else {
+                    return@withContext Result.failure(Exception("API response body is null"))
+                }
+            } else {
+                return@withContext Result.failure(Exception("API request failed with code: ${response.code()}"))
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting bus schedule", e)
+            return@withContext Result.failure(e)
+        }
+    }
 }

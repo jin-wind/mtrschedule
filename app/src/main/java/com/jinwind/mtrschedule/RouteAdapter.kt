@@ -7,12 +7,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class RouteAdapter(
-    private val routes: List<String>,
+    private var routes: List<String>,
     private val onRouteSelected: (String, Boolean) -> Unit
 ) : RecyclerView.Adapter<RouteAdapter.RouteViewHolder>() {
 
     private var selectedPosition = RecyclerView.NO_POSITION
     private var isReverse = false // 添加方向标志，默认为正向
+
+    fun updateRoutes(newRoutes: List<String>) {
+        routes = newRoutes
+        selectedPosition = RecyclerView.NO_POSITION
+        isReverse = false
+        notifyDataSetChanged()
+    }
 
     // 获取当前选中的路线
     fun getSelectedRoute(): String? {
