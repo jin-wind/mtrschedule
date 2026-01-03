@@ -1,0 +1,331 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+    height: 100vh;
+}
+
+.widget-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Window Controls */
+.window-controls {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    -webkit-app-region: drag;
+    user-select: none;
+}
+
+.drag-area {
+    flex: 1;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    -webkit-app-region: drag;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 4px;
+    -webkit-app-region: no-drag;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.control-btn.close-btn:hover {
+    background: #e74c3c;
+}
+
+.control-btn.pin-btn.pinned {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Header */
+.widget-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.station-selector {
+    flex: 1;
+}
+
+.station-dropdown {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    background: white;
+    color: #667eea;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.station-dropdown:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.refresh-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 16px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* Last Update */
+.last-update {
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+    background: rgba(102, 126, 234, 0.05);
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+/* Platforms Container */
+.platforms-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    flex: 1;
+    overflow: hidden;
+}
+
+.platform {
+    padding: 12px;
+    border-right: 1px solid rgba(102, 126, 234, 0.1);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.platform:last-child {
+    border-right: none;
+}
+
+.platform-1 {
+    background: linear-gradient(to bottom, rgba(239, 68, 68, 0.03), transparent);
+}
+
+.platform-2 {
+    background: linear-gradient(to bottom, rgba(59, 130, 246, 0.03), transparent);
+}
+
+.platform-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid;
+}
+
+.platform-1 .platform-header {
+    border-color: #ef4444;
+}
+
+.platform-2 .platform-header {
+    border-color: #3b82f6;
+}
+
+.platform-icon {
+    font-size: 16px;
+}
+
+.platform-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.platform-1 .platform-title {
+    color: #ef4444;
+}
+
+.platform-2 .platform-title {
+    color: #3b82f6;
+}
+
+/* Trains List */
+.trains-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.train-card {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-left: 3px solid;
+    transition: all 0.3s ease;
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.platform-1 .train-card {
+    border-color: #ef4444;
+}
+
+.platform-2 .train-card {
+    border-color: #3b82f6;
+}
+
+.train-card:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.train-route {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+.platform-1 .train-route {
+    color: #ef4444;
+}
+
+.platform-2 .train-route {
+    color: #3b82f6;
+}
+
+.train-destination {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.train-destination::before {
+    content: '→';
+    font-size: 16px;
+}
+
+.train-info {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.train-time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.train-car-type {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #999;
+    font-size: 13px;
+}
+
+.no-trains {
+    text-align: center;
+    padding: 30px;
+    color: #999;
+    font-size: 13px;
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Scrollbar */
+.platform::-webkit-scrollbar {
+    width: 6px;
+}
+
+.platform::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.platform::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 3px;
+}
+
+.platform::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.5);
+}

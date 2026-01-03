@@ -2,6 +2,58 @@
 
 一款中學生打造嘅輕鐵時刻表 App，提供即時班次、路線模式、站點收藏等功能。
 
+## 🆕 桌面小組件 (Desktop Widgets)
+
+本項目現在提供桌面小組件實現！
+
+### 方案 A: Electron 桌面小組件 ⭐ 推薦
+
+**真正可以固定在桌面的小組件！** 使用 Electron 構建的獨立桌面應用程式。
+
+- 📍 **路徑**: `desktop-widget/`
+- 🚀 **快速開始**: 
+  ```bash
+  cd desktop-widget
+  npm install
+  npm start
+  ```
+- ✨ **特點**: 
+  - ✅ 真正的桌面應用程式（不是瀏覽器頁面）
+  - ✅ 可固定在桌面（始終置頂功能）
+  - ✅ 無邊框視窗，可拖動
+  - ✅ 記憶視窗位置和大小
+  - ✅ 獨立運行，不依賴瀏覽器
+- 🌐 **跨平台**: Windows、Linux、macOS
+- ✅ **狀態**: 完全可用，真正的桌面小組件
+- 📖 **詳細文檔**: 查看 [`desktop-widget/README.md`](desktop-widget/README.md)
+
+### 方案 B: HTML 網頁版本
+
+輕量級的 HTML/CSS/JavaScript 網頁版本（需要在瀏覽器中開啟）。
+
+- 📍 **路徑**: `html-widget/`
+- 🚀 **快速開始**: 雙擊 `html-widget/index.html` 即可使用
+- 🎨 **特點**: 現代化 UI、毛玻璃效果、流暢動畫
+- ⚠️ **限制**: 需要瀏覽器，無法真正固定在桌面
+- 📖 **詳細文檔**: 查看 [`html-widget/README.md`](html-widget/README.md)
+
+### 方案 C: Windows 11 原生小組件 (概念驗證)
+
+基於 Windows App SDK 的概念驗證專案。
+
+- 📍 **路徑**: `MTRWidget/`
+- 🔧 **技術**: C# + Windows App SDK
+- ⚠️ **狀態**: Windows Widgets API 尚未公開，無法編譯
+- 💡 **用途**: 為未來 API 發布做準備的概念代碼
+- 📖 **詳細文檔**: 查看 [`MTRWidget/README.md`](MTRWidget/README.md)
+
+### ~~方案 D: Python tkinter 版本~~ (已棄用)
+
+- 📍 **路徑**: `windows-widget/`
+- ⚠️ **狀態**: 已被更好的 Electron 版本取代
+
+---
+
 ## 功能特色
 - **卡片模式**：顯示各個車站下一班及後備班次，支援骨架載入效果。
 - **路線模式**：按路線瀏覽所有沿線車站，支援正逆方向切換及列車卡片動畫。
@@ -41,6 +93,7 @@
 - `app/src/main/res/drawable/`：自訂背景、圖示與動畫資源。
 - `app/src/main/res/values/`：色盤、字串、樣式與主題。
 - `app/src/main/res/mipmap-*/`：應用圖示（目前以提供嘅照片為主題）。
+- `windows-widget/`：**Python 桌面小工具**（新增），支援 Windows/Linux/macOS。
 
 ## 測試
 - 單元測試入口：`app/src/test/java`。
