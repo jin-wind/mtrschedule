@@ -91,6 +91,70 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- 小组件站点设置卡片 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_star_outline"
+                        android:drawablePadding="8dp"
+                        android:drawableTint="@color/primary"
+                        android:text="@string/widget_station_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/widget_station_description"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <RadioGroup
+                        android:id="@+id/widgetStationSourceGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/widgetSourceDefaultRadio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/widget_station_source_default"
+                            android:textColor="@color/text_primary" />
+
+                        <RadioButton
+                            android:id="@+id/widgetSourceCustomRadio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/widget_station_source_custom"
+                            android:textColor="@color/text_primary" />
+                    </RadioGroup>
+
+                    <Spinner
+                        android:id="@+id/widgetStationSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/spinner_background" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <!-- 已顶置站点管理卡片 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

@@ -34,6 +34,7 @@ class SettingsActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
 
         setupDefaultStationSettings()
+        setupWidgetStationSettings()
         setupToppedStationsSettings()
         setupLanguageSettings()
 
@@ -79,6 +80,33 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupWidgetStationSettings() {
+        val stationNames = MtrStationList.stations.map { "${it.nameEn} (${it.nameChi})" }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, stationNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.widgetStationSpinner.adapter = adapter
+
+        val source = settingsManager.getWidgetStationSource()
+        if (source == "custom") {
+            binding.widgetSourceCustomRadio.isChecked = true
+        } else {
+            binding.widgetSourceDefaultRadio.isChecked = true
+        }
+
+        val savedStationId = settingsManager.getWidgetStationId()
+        val savedIndex = MtrStationList.stations.indexOfFirst { it.id == savedStationId }
+        if (savedIndex >= 0) {
+            binding.widgetStationSpinner.setSelection(savedIndex)
+        }
+
+        val isCustom = binding.widgetSourceCustomRadio.isChecked
+        binding.widgetStationSpinner.isEnabled = isCustom
+
+        binding.widgetStationSourceGroup.setOnCheckedChangeListener { _, checkedId ->
+            binding.widgetStationSpinner.isEnabled = checkedId == R.id.widgetSourceCustomRadio
+        }
+    }
+
     private fun setupToppedStationsSettings() {
         // 恢复默认排序按钮点击事件
         binding.clearToppedButton.setOnClickListener {
@@ -111,6 +139,20 @@ class SettingsActivity : AppCompatActivity() {
         if (selectedStationIndex >= 0 && selectedStationIndex < MtrStationList.stations.size) {
             val selectedStationId = MtrStationList.stations[selectedStationIndex].id
             settingsManager.setDefaultStation(selectedStationId)
+        }
+
+        val widgetSource = if (binding.widgetSourceCustomRadio.isChecked) {
+            "custom"
+        } else {
+            "default"
+        }
+        settingsManager.setWidgetStationSource(widgetSource)
+        if (widgetSource == "custom") {
+            val widgetStationIndex = binding.widgetStationSpinner.selectedItemPosition
+            if (widgetStationIndex >= 0 && widgetStationIndex < MtrStationList.stations.size) {
+                val widgetStationId = MtrStationList.stations[widgetStationIndex].id
+                settingsManager.setWidgetStationId(widgetStationId)
+            }
         }
 
         // 保存语言设置

@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">MTR Schedule</string>
+    <string name="widget_name">MTR Schedule Widget</string>
+    <string name="widget_loading">Loading...</string>
+    <string name="widget_station_title">Widget Station</string>
+    <string name="widget_station_description">Choose which station the widget should display.</string>
+    <string name="widget_station_source_default">Use default station</string>
+    <string name="widget_station_source_custom">Choose a station</string>
     <string name="app_title">MTR Light Rail Schedule</string>
     <string name="station_code_label">Station ID: %s</string>
     <string name="next_train_label">Next Train:</string>
@@ -14,6 +20,7 @@
     <string name="change_language">中文</string>
     <string name="arriving">Arriving</string>
     <string name="platform">Platform %d</string>
+    <string name="platform_destination_format">Platform %1$d → %2$s</string>
 	<string name="voice_prompt">Search for a station</string>
 	<string name="route_number_format">Route %s</string>
     <string name="platform_route_format">%1$s - %2$s</string>

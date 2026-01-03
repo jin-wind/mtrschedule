@@ -51,10 +51,10 @@
     <!-- 右侧路线详情区域 - 占屏幕4/5宽度 -->
     <FrameLayout
         android:id="@+id/route_detail_container"
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-        app:layout_constraintStart_toEndOf="@id/route_list_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        app:layout_constraintStart_toEndOf="@id/left_column"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">

@@ -233,31 +233,47 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener, N
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        if (binding.stationDetailLayout.visibility == View.VISIBLE) {
-            showStationList()
-            return true
+        return if (handleBackNavigation()) {
+            true
+        } else {
+            super.onSupportNavigateUp()
         }
-        return super.onSupportNavigateUp()
     }
 
     @Deprecated("Use the new back navigation system")
     override fun onBackPressed() {
-        // 如果侧边栏打开，先关闭侧边栏
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else if (binding.stationDetailLayout.visibility == View.VISIBLE) {
-            // 如果在详情页且是从路线模式打开的，返回到路线模式
-            if (isCardOpenedFromRouteMode) {
-                // 返回到路线模式
-                switchBackToRouteMode()
-            } else {
-                // 否则返回到列表页
-                showStationList()
-            }
-        } else {
-            // 否则正常退出
+        if (!handleBackNavigation()) {
             super.onBackPressed()
         }
+    }
+
+    private fun handleBackNavigation(): Boolean {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            return true
+        }
+
+        if (binding.fragmentContainer.visibility == View.VISIBLE) {
+            // Return to main content from route mode.
+            supportFragmentManager.findFragmentByTag("route_mode_fragment")?.let {
+                supportFragmentManager.beginTransaction().hide(it).commit()
+            }
+            binding.fragmentContainer.visibility = View.GONE
+            binding.mainContent.visibility = View.VISIBLE
+            title = getString(R.string.app_name)
+            return true
+        }
+
+        if (binding.stationDetailLayout.visibility == View.VISIBLE) {
+            if (isCardOpenedFromRouteMode) {
+                switchBackToRouteMode()
+            } else {
+                showStationList()
+            }
+            return true
+        }
+
+        return false
     }
 
     private fun setupSearch() {
