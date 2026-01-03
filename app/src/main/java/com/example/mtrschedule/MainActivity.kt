@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: TrainScheduleViewModel
     private lateinit var adapter: StationAdapter
+    private var currentStation: Station? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
         setupViewModel()
         setupRecyclerView()
         setupSwipeToRefresh()
+        setupBottomNavigation()
         observeData()
 
         binding.topAppBar.setOnMenuItemClickListener { item ->
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
         val sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
         val defaultStationId = sharedPreferences.getString("default_station", "240") // 默認站點
         viewModel.fetchStationSchedule(defaultStationId ?: "240")
+        binding.bottomNavigation.selectedItemId = R.id.action_route_mode
     }
 
     private fun setupRecyclerView() {
@@ -91,7 +94,9 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
         }
 
         viewModel.selectedStation.observe(this) { station ->
+            currentStation = station
             displayStationDetail(station)
+            binding.bottomNavigation.selectedItemId = R.id.action_route_mode
             updateTimestamp()
         }
 
@@ -140,6 +145,33 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
         binding.stationListLayout.visibility = View.VISIBLE
         binding.stationDetailLayout.visibility = View.GONE
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        binding.bottomNavigation.selectedItemId = R.id.action_card_mode
+    }
+
+    private fun setupBottomNavigation() {
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_route_mode -> {
+                    currentStation?.let { station ->
+                        displayStationDetail(station)
+                    } ?: run {
+                        showStationList()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.search_hint),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    true
+                }
+                R.id.action_card_mode -> {
+                    showStationList()
+                    viewModel.fetchStationSchedules()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onStationClick(station: Station) {

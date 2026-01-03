@@ -5,6 +5,8 @@
     <string name="station_list_title">輕鐵車表</string>
     <string name="station_list_subtitle">即時下一班車資訊</string>
     <string name="save">保存</string>
+    <string name="route_mode">路線模式</string>
+    <string name="card_mode">卡片模式</string>
     <string name="station_code_label">車站編號：</string>
     <string name="next_train_label">下一班列車：</string>
     <string name="destination_label">目的地：</string>

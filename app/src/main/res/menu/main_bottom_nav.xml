@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_route_mode"
+        android:icon="@android:drawable/ic_menu_directions"
+        android:title="@string/route_mode" />
+    <item
+        android:id="@+id/action_card_mode"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="@string/card_mode" />
+</menu>
