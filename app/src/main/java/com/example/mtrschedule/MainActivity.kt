@@ -22,11 +22,10 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.title = ""
         setContentView(binding.root)
+        setSupportActionBar(binding.topAppBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
 
         setupViewModel()
@@ -34,10 +33,15 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
         setupSwipeToRefresh()
         observeData()
 
-        // 設置按鈕跳轉到設置頁面
-        binding.settingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+        binding.topAppBar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_settings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
         }
 
         // 設置初始時間戳
@@ -112,6 +116,7 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
         // 隱藏站點列表，顯示詳細信息
         binding.stationListLayout.visibility = View.GONE
         binding.stationDetailLayout.visibility = View.VISIBLE
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // 更新 UI
         binding.stationIdText.text = getString(R.string.station_code_label) + " " + station.stationId
@@ -134,6 +139,7 @@ class MainActivity : AppCompatActivity(), StationAdapter.StationClickListener {
     private fun showStationList() {
         binding.stationListLayout.visibility = View.VISIBLE
         binding.stationDetailLayout.visibility = View.GONE
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     override fun onStationClick(station: Station) {

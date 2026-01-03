@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">MTR Schedule</string>
     <string name="app_title">MTR Light Rail Schedule</string>
+    <string name="settings">Settings</string>
+    <string name="station_list_title">輕鐵車表</string>
+    <string name="station_list_subtitle">即時下一班車資訊</string>
+    <string name="save">Save</string>
     <string name="station_code_label">Station ID:</string>
     <string name="next_train_label">Next Train:</string>
     <string name="destination_label">Destination:</string>

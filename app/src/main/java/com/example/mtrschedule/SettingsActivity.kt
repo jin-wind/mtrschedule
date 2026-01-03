@@ -16,6 +16,8 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.settingsToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
 
@@ -60,5 +62,10 @@ class SettingsActivity : AppCompatActivity() {
             sharedPreferences.edit().putString("default_station", selectedStationId).apply()
             finish()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }
