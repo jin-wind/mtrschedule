@@ -31,9 +31,9 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/ic_star_outline"
-                android:tint="#A4B8FF"
                 android:layout_marginEnd="6dp"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name"
+                app:tint="#A4B8FF" />
 
             <TextView
                 android:id="@+id/station_name"

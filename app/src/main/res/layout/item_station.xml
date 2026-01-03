@@ -63,10 +63,10 @@
             android:layout_marginEnd="8dp"
             android:contentDescription="@string/station_name"
             android:src="@android:drawable/ic_menu_myplaces"
-            android:tint="@color/primary"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

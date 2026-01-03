@@ -18,7 +18,6 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
 
         <!-- 控制元件顏色 -->
         <item name="colorControlHighlight">@color/overlay_soft</item>

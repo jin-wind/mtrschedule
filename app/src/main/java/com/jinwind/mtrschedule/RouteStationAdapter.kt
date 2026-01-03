@@ -53,7 +53,6 @@ class RouteStationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             trainRecyclerView.adapter = trainAdapter
             
             // 优化RecyclerView性能
-            trainRecyclerView.setHasFixedSize(true)
             trainRecyclerView.itemAnimator = null
         }
 
