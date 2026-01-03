@@ -17,6 +17,8 @@ class PreferencesManager(context: Context) {
         private const val PREFS_APP_THEME_KEY = "app_theme"
         private const val PREFS_LANGUAGE_KEY = "app_language"
         private const val PREFS_TOPPED_STATIONS_KEY = "topped_stations" // 新增：已顶置站点的键
+        private const val PREFS_WIDGET_STATION_SOURCE_KEY = "widget_station_source"
+        private const val PREFS_WIDGET_STATION_ID_KEY = "widget_station_id"
     }
     
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
@@ -64,6 +66,23 @@ class PreferencesManager(context: Context) {
     // 获取应用语言设置
     fun getLanguage(): String {
         return sharedPreferences.getString(PREFS_LANGUAGE_KEY, "system") ?: "system"
+    }
+
+    // 小组件站点来源设置
+    fun saveWidgetStationSource(source: String) {
+        sharedPreferences.edit().putString(PREFS_WIDGET_STATION_SOURCE_KEY, source).apply()
+    }
+
+    fun getWidgetStationSource(): String {
+        return sharedPreferences.getString(PREFS_WIDGET_STATION_SOURCE_KEY, "default") ?: "default"
+    }
+
+    fun saveWidgetStationId(stationId: String) {
+        sharedPreferences.edit().putString(PREFS_WIDGET_STATION_ID_KEY, stationId).apply()
+    }
+
+    fun getWidgetStationId(): String {
+        return sharedPreferences.getString(PREFS_WIDGET_STATION_ID_KEY, "") ?: ""
     }
 
     // 新增：保存已顶置的站点列表

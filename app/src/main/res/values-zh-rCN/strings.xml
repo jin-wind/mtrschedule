@@ -1,4 +1,11 @@
 <resources>
+    <string name="widget_name">港铁班次小工具</string>
+    <string name="widget_loading">加载中...</string>
+    <string name="widget_station_title">小工具站点</string>
+    <string name="widget_station_description">选择小工具要显示的车站。</string>
+    <string name="widget_station_source_default">使用默认车站</string>
+    <string name="widget_station_source_custom">自选车站</string>
+    <string name="route_number_format">路线 %s</string>
     <string name="app_title">港铁轻铁班次表</string>
     <string name="station_code_label">车站编号：</string>
     <string name="next_train_label">下一班列车：</string>
@@ -13,6 +20,7 @@
     <string name="change_language">English</string>
     <string name="arriving">即将抵达</string>
     <string name="platform">月台 %d</string>
+    <string name="platform_destination_format">月台 %1$d → %2$s</string>
     <string name="train_car_icon_content_description">列车车卡图示</string>
     <string name="train_car_single_description">单卡列车</string>
     <string name="train_car_double_description">双卡列车</string>

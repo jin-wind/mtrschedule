@@ -122,4 +122,21 @@ class SettingsManager private constructor(context: Context) {
     fun getLanguage(): String {
         return preferencesManager.getLanguage()
     }
+
+    // 小组件站点来源设置
+    fun setWidgetStationSource(source: String) {
+        preferencesManager.saveWidgetStationSource(source)
+    }
+
+    fun getWidgetStationSource(): String {
+        return preferencesManager.getWidgetStationSource()
+    }
+
+    fun setWidgetStationId(stationId: String) {
+        preferencesManager.saveWidgetStationId(stationId)
+    }
+
+    fun getWidgetStationId(): String {
+        return preferencesManager.getWidgetStationId()
+    }
 }
