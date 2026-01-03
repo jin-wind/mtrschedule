@@ -13,3 +13,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Web (Vue) specific
+web/node_modules
+web/dist
+web/.env.local
+web/.env.*.local
+
