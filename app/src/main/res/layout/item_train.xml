@@ -1,71 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/spacing_sm"
-    app:cardCornerRadius="@dimen/card_radius"
-    app:cardElevation="@dimen/card_elevation"
-    app:cardBackgroundColor="@color/white">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_md">
+    android:paddingStart="@dimen/spacing_md"
+    android:paddingEnd="@dimen/spacing_md"
+    android:paddingTop="@dimen/spacing_sm"
+    android:paddingBottom="@dimen/spacing_sm">
 
         <!-- Main item: Route Number -->
-        <TextView
-            android:id="@+id/routeNumberText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/accent_blue"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/timeText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Route 505" />
+    <TextView
+        android:id="@+id/routeNumberText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/accent_blue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/timeText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Route 505" />
 
         <!-- Secondary: Destination -->
-        <TextView
-            android:id="@+id/destinationText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/navy_900"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:layout_constraintEnd_toStartOf="@+id/timeText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/routeNumberText"
-            tools:text="Tuen Mun Ferry Pier" />
+    <TextView
+        android:id="@+id/destinationText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/navy_900"
+        android:layout_marginTop="@dimen/spacing_xs"
+        app:layout_constraintEnd_toStartOf="@+id/timeText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/routeNumberText"
+        tools:text="Tuen Mun Ferry Pier" />
 
         <!-- Platform information -->
-        <TextView
-            android:id="@+id/platformText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/accent_green"
-            android:layout_marginTop="@dimen/spacing_xs"
-            app:layout_constraintEnd_toStartOf="@+id/timeText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/destinationText"
-            tools:text="站台1" />
+    <TextView
+        android:id="@+id/platformText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/accent_green"
+        android:layout_marginTop="@dimen/spacing_xs"
+        app:layout_constraintEnd_toStartOf="@+id/timeText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/destinationText"
+        tools:text="站台1" />
 
         <!-- Time to arrival -->
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/accent_red"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="5 min" />
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/accent_red"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="5 min" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/trainDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/spacing_sm"
+        android:background="@color/surface_variant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/platformText" />
 
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

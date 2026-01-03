@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">輕鐵車表</string>
     <string name="app_title">港鐵輕鐵班次表</string>
     <string name="settings">設定</string>
     <string name="station_list_title">輕鐵車表</string>
