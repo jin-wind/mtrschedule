@@ -1,8 +1,6 @@
-<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
 package com.jinwind.mtrschedule
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -10,170 +8,86 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jinwind.mtrschedule.data.MtrStationList
 import com.jinwind.mtrschedule.databinding.ActivitySettingsBinding
 import com.jinwind.mtrschedule.settings.SettingsManager
-import com.jinwind.mtrschedule.util.LanguageHelper
-=======
-package com.example.mtrschedule
-
-import android.content.SharedPreferences
-import android.os.Bundle
-import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mtrschedule.data.MtrStationList
-import com.example.mtrschedule.databinding.ActivitySettingsBinding
->>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
-    private lateinit var sharedPreferences: SharedPreferences
-<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
     private lateinit var settingsManager: SettingsManager
-    private var currentLanguage = "system"
-=======
->>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        settingsManager = SettingsManager.getInstance(this)
+        
+        setupToolbar()
+        setupDefaultStation()
+        setupLanguage()
+        setupResetOrder()
+    }
 
-<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
-        // 初始化工具栏
+    private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        binding.toolbar.setNavigationOnClickListener { onBackPressed() }
-
-        // 初始化设置管理器
-        settingsManager = SettingsManager.getInstance(this)
-        sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
-
-        setupDefaultStationSettings()
-        setupToppedStationsSettings()
-        setupLanguageSettings()
-
-        // 保存按钮点击事件
-        binding.saveButton.setOnClickListener {
-            saveSettings()
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 
-    private fun setupDefaultStationSettings() {
-=======
-        sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
+    private fun setupDefaultStation() {
+        // 使用 MtrStationList.stations 列表
+        val stations = MtrStationList.stations
+        val stationNames = stations.map { it.nameChi }
+        val currentDefaultId = settingsManager.getDefaultStationId()
+        val currentDefaultName = stations.find { it.id == currentDefaultId }?.nameChi ?: "None"
+        
+        binding.selectedStationText.text = currentDefaultName
 
->>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
-        // 提取車站名稱列表
-        val stationNames = MtrStationList.stations.map { "${it.nameEn} (${it.nameChi})" }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, stationNames)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.stationSpinner.adapter = adapter
-
-        var filteredStations = MtrStationList.stations // 用於保存過濾後的車站列表
-
-        // 搜尋功能
-        binding.searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+        binding.defaultStationLayout.setOnClickListener {
+            val builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle(getString(R.string.default_station))
+            
+            val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stationNames)
+            builder.setAdapter(adapter) { _, which ->
+                val selectedStation = stations[which]
+                settingsManager.setDefaultStation(selectedStation.id)
+                binding.selectedStationText.text = selectedStation.nameChi
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filteredStations = MtrStationList.stations.filter {
-                    it.nameEn.contains(newText ?: "", ignoreCase = true) ||
-                            it.nameChi.contains(newText ?: "")
-                }
-                val filteredNames = filteredStations.map { "${it.nameEn} (${it.nameChi})" }
-                adapter.clear()
-                adapter.addAll(filteredNames)
-                adapter.notifyDataSetChanged()
-                return true
-            }
-        })
-
-        // 加載已保存的默認車站
-<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
-        val defaultStationId = settingsManager.getDefaultStationId()
-=======
-        val defaultStationId = sharedPreferences.getString("default_station", MtrStationList.stations[0].id)
->>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
-        val defaultStationIndex = MtrStationList.stations.indexOfFirst { it.id == defaultStationId }
-        if (defaultStationIndex >= 0) {
-            binding.stationSpinner.setSelection(defaultStationIndex)
+            builder.show()
         }
-<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
     }
 
-    private fun setupToppedStationsSettings() {
-        // 恢复默认排序按钮点击事件
-        binding.clearToppedButton.setOnClickListener {
+    private fun setupLanguage() {
+        val currentLang = settingsManager.getLanguage()
+        when (currentLang) {
+            "en" -> binding.radioEnglish.isChecked = true
+            "zh" -> binding.radioChinese.isChecked = true
+            else -> binding.radioSystem.isChecked = true
+        }
+
+        binding.languageRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+            val newLang = when (checkedId) {
+                R.id.radioEnglish -> "en"
+                R.id.radioChinese -> "zh"
+                else -> "system"
+            }
+            
+            if (newLang != currentLang) {
+                settingsManager.setLanguage(newLang)
+                // 重启 Activity 以应用语言
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun setupResetOrder() {
+        binding.resetOrderButton.setOnClickListener {
             settingsManager.resetToDefaultOrder()
-
-            // 通知MainActivity需要重置置顶站点的状态
-            val intent = Intent()
-            intent.putExtra("RESET_PINNED_STATIONS", true)
-            setResult(RESULT_OK, intent)
-
-            Toast.makeText(this, getString(R.string.reset_order_success), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.reset_order_success), Toast.LENGTH_LONG).show()
         }
     }
-
-    private fun setupLanguageSettings() {
-        // 加载当前语言设置
-        currentLanguage = settingsManager.getLanguage()
-
-        // 根据当前语言设置选中相应的单选按钮
-        when (currentLanguage) {
-            "en" -> binding.englishRadio.isChecked = true
-            "zh" -> binding.chineseRadio.isChecked = true
-            else -> binding.systemLanguageRadio.isChecked = true
-        }
-    }
-
-    private fun saveSettings() {
-        // 保存默认站点
-        val selectedStationIndex = binding.stationSpinner.selectedItemPosition
-        if (selectedStationIndex >= 0 && selectedStationIndex < MtrStationList.stations.size) {
-            val selectedStationId = MtrStationList.stations[selectedStationIndex].id
-            settingsManager.setDefaultStation(selectedStationId)
-        }
-
-        // 保存语言设置
-        val newLanguage = when {
-            binding.englishRadio.isChecked -> "en"
-            binding.chineseRadio.isChecked -> "zh"
-            else -> "system"
-        }
-
-        // 只有当语言设置发生变化时才应用新语言
-        if (newLanguage != currentLanguage) {
-            settingsManager.setLanguage(newLanguage)
-            // 应用语言设置
-            LanguageHelper.setLocale(this, newLanguage)
-
-            // 重启应用以应用语言更改
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finishAffinity()
-        } else {
-            // 如果语言没有变化，只关闭设置页面
-            finish()
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-=======
-
-        // 保存選擇的車站
-        binding.saveButton.setOnClickListener {
-            val selectedStationIndex = binding.stationSpinner.selectedItemPosition
-            val selectedStationId = filteredStations[selectedStationIndex].id // 使用過濾後的列表
-            sharedPreferences.edit().putString("default_station", selectedStationId).apply()
-            finish()
-        }
-    }
->>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
 }

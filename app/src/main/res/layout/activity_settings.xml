@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,94 +47,30 @@
                 app:cardElevation="2dp">
 
                 <LinearLayout
+                    android:id="@+id/defaultStationLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp"
+                    android:background="?attr/selectableItemBackground">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_star_filled"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@color/primary"
                         android:text="@string/default_station"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/selectedStationText"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/default_station_description"
+                        android:layout_marginTop="6dp"
+                        android:text="None"
                         android:textColor="@color/text_secondary"
                         android:textSize="14sp" />
 
-                    <SearchView
-                        android:id="@+id/searchView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/bg_search_field"
-                        android:iconifiedByDefault="false"
-                        android:queryHint="@string/search_station" />
-
-                    <Spinner
-                        android:id="@+id/stationSpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/spinner_background" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 已顶置站点管理卡片 -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_star_outline"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@color/primary"
-                        android:text="@string/topped_stations"
-                        android:textColor="@color/text_primary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/topped_stations_description"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/clearToppedButton"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/clear_topped_stations"
-                        android:textColor="@color/primary"
-                        app:iconTint="@color/primary"
-                        app:strokeColor="@color/primary" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -152,87 +87,72 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_language"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@color/primary"
                         android:text="@string/language_settings"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
 
                     <RadioGroup
                         android:id="@+id/languageRadioGroup"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp">
+                        android:layout_height="wrap_content">
 
                         <RadioButton
-                            android:id="@+id/systemLanguageRadio"
+                            android:id="@+id/radioSystem"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/system_language"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:padding="12dp" />
 
                         <RadioButton
-                            android:id="@+id/englishRadio"
+                            android:id="@+id/radioEnglish"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/english"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:padding="12dp" />
 
                         <RadioButton
-                            android:id="@+id/chineseRadio"
+                            android:id="@+id/radioChinese"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/chinese"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:padding="12dp" />
                     </RadioGroup>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- 保存按钮 -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/saveButton"
+            <!-- 重置排序 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/resetOrderButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/primary"
-                android:padding="14dp"
-                android:text="@string/save_settings"
-                android:textColor="@color/on_primary"
-                app:cornerRadius="16dp" />
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="@string/clear_topped_stations"
+                    android:textColor="@color/primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground" />
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-=======
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="搜尋車站" />
-
-    <Spinner
-        android:id="@+id/stationSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="保存" />
-</LinearLayout>
->>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf
