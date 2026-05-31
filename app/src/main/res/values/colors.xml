@@ -21,6 +21,18 @@
     <color name="card_background">#FFFFFF</color>
     <color name="settings_background">#FAFAFA</color>
 
+    <!-- Liquid glass surfaces inspired by AndroidLiquidGlass backdrop examples -->
+    <color name="liquid_background_top">#F8FBFF</color>
+    <color name="liquid_background_bottom">#EAF2FF</color>
+    <color name="liquid_surface">#CCFFFFFF</color>
+    <color name="liquid_surface_strong">#E6FFFFFF</color>
+    <color name="liquid_surface_subtle">#99FFFFFF</color>
+    <color name="liquid_highlight">#FFFFFFFF</color>
+    <color name="liquid_stroke">#80FFFFFF</color>
+    <color name="liquid_shadow">#1A25497B</color>
+    <color name="liquid_tint_blue">#3325497B</color>
+    <color name="liquid_tint_pink">#26AF2A47</color>
+
     <!-- 文本顏色 -->
     <color name="text_primary">#0A2640</color>
     <color name="text_secondary">#9195A1</color>
@@ -28,17 +40,17 @@
 
     <!-- 功能色彩 -->
     <color name="divider_muted">#E1E6E7</color>
-    <color name="overlay_soft">#CCFFFFFF</color>
+    <color name="overlay_soft">@color/liquid_surface</color>
     <color name="icon_tint">#0A2640</color>
     <color name="nav_background">#FFFFFF</color>
 
     <!-- 搜尋與表單背景 -->
-    <color name="search_background">#F0F0F7</color>
+    <color name="search_background">@color/liquid_surface</color>
     <color name="spinner_background">#F0F0F7</color>
 
     <!-- 路線卡片顏色 -->
-    <color name="route_card_background">@color/card_background</color>
-    <color name="route_card_header_background">#F0F0F7</color>
+    <color name="route_card_background">@color/liquid_surface_strong</color>
+    <color name="route_card_header_background">#DDEBFF</color>
     <color name="route_card_text">@color/text_primary</color>
     <color name="route_card_time_text">#9195A1</color>
 

@@ -5,14 +5,14 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/liquid_background"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:rotationX="-360"
+        android:background="@drawable/liquid_background"
         tools:context=".MainActivity">
 
         <!-- 添加Toolbar -->
@@ -20,7 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/background"
+            android:background="@color/liquid_surface_subtle"
             android:elevation="0dp"
             android:theme="@style/ThemeOverlay.Mtrschedule.Toolbar"
             app:popupTheme="@style/ThemeOverlay.Mtrschedule.Toolbar"
@@ -43,7 +43,7 @@
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@color/background"
+                android:background="@android:color/transparent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -213,7 +213,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/nav_background"
+        android:background="@color/liquid_surface_strong"
         android:fitsSystemWindows="true"
         app:itemIconTint="@color/nav_item_icon_tint"
         app:itemTextColor="@color/nav_item_text_tint"

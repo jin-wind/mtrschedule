@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/route_card_header_background" />
-    <corners android:radius="16dp" />
+    <gradient
+        android:angle="0"
+        android:startColor="@color/route_card_header_background"
+        android:endColor="@color/liquid_surface_subtle" />
+    <corners android:radius="20dp" />
 </shape>
