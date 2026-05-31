@@ -8,7 +8,7 @@
     android:layout_marginTop="6dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="6dp"
-    app:cardCornerRadius="12dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
     app:cardBackgroundColor="@color/route_card_background">
 
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="4dp">
+        android:padding="0dp">
 
         <!-- 上方區域：路線號與車輛圖標 -->
         <LinearLayout
@@ -45,19 +45,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/route_card_text"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    android:fontFamily="sans-serif-black"
                     tools:text="505" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/carIcon"
+            <TextView
+                android:id="@+id/destinationText"
                 android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/train_car_icon_content_description"
-                android:src="@drawable/ic_train_single"
-                tools:src="@drawable/ic_train_double" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/route_card_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="end"
+                android:paddingStart="12dp"
+                tools:text="屯門碼頭" />
         </LinearLayout>
 
         <!-- 下方區域：到達時間與目的地 -->
@@ -67,29 +71,29 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:paddingStart="14dp"
             android:paddingEnd="14dp">
 
-            <TextView
-                android:id="@+id/timeText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/route_card_time_text"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                tools:text="5分钟" />
+            <ImageView
+                android:id="@+id/carIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/train_car_icon_content_description"
+                android:src="@drawable/ic_train_single"
+                tools:src="@drawable/ic_train_double" />
 
             <TextView
-                android:id="@+id/destinationText"
+                android:id="@+id/timeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/route_card_time_text"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:gravity="end"
-                android:paddingStart="12dp"
-                tools:text="屯門碼頭" />
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                tools:text="5分钟" />
         </LinearLayout>
 
     </LinearLayout>

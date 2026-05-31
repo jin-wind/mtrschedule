@@ -44,16 +44,13 @@
 
         <TextView
             android:id="@+id/destinationText"
-            android:layout_width="0dp"
+            android:layout_width="355dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stationCodeText"
-            tools:text="Destination: Central" />
+            tools:layout_editor_absoluteX="-7dp"
+            tools:layout_editor_absoluteY="-3dp" />
 
 
         <ImageView
@@ -63,10 +60,10 @@
             android:layout_marginEnd="8dp"
             android:contentDescription="@string/station_name"
             android:src="@android:drawable/ic_menu_myplaces"
+            android:tint="@color/primary"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/primary" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
