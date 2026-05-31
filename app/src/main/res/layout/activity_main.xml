@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:background="@color/background"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
@@ -161,12 +162,59 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+=======
+    tools:context=".MainActivity">
+
+    <!-- Station list layout -->
+    <LinearLayout
+        android:id="@+id/stationListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/timestampText">
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="設置"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Title text removed -->
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stationsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_station" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <!-- Station detail layout -->
+    <LinearLayout
+        android:id="@+id/stationDetailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/timestampText">
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf
 
         <!-- 时间戳文本，保留在底部 -->
         <TextView
             android:id="@+id/timestampText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:layout_marginEnd="16dp"
             android:gravity="end|center_vertical"
             android:padding="6dp"
@@ -177,6 +225,11 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+=======
+            android:text="@string/station_name"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf
 
         <ProgressBar
             android:id="@+id/progressBar"

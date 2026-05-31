@@ -65,6 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/routeNumberText"
             tools:text="Tuen Mun Ferry Pier" />
 
+<<<<<<< HEAD
         <TextView
             android:id="@+id/platformText"
             android:layout_width="0dp"
@@ -81,6 +82,23 @@
             app:layout_constraintTop_toBottomOf="@+id/routeNumberText"
             tools:text="站台1" />
 
+=======
+        <!-- Platform information -->
+        <TextView
+            android:id="@+id/platformText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/timeText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/destinationText"
+            tools:text="站台1" />
+
+        <!-- Time to arrival -->
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf
         <TextView
             android:id="@+id/timeText"
             android:layout_width="wrap_content"

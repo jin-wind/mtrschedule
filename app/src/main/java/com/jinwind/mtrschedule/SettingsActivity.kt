@@ -1,3 +1,4 @@
+<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
 package com.jinwind.mtrschedule
 
 import android.content.Intent
@@ -10,19 +11,33 @@ import com.jinwind.mtrschedule.data.MtrStationList
 import com.jinwind.mtrschedule.databinding.ActivitySettingsBinding
 import com.jinwind.mtrschedule.settings.SettingsManager
 import com.jinwind.mtrschedule.util.LanguageHelper
+=======
+package com.example.mtrschedule
+
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mtrschedule.data.MtrStationList
+import com.example.mtrschedule.databinding.ActivitySettingsBinding
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var sharedPreferences: SharedPreferences
+<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
     private lateinit var settingsManager: SettingsManager
     private var currentLanguage = "system"
+=======
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
         // 初始化工具栏
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -44,6 +59,10 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setupDefaultStationSettings() {
+=======
+        sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
+
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
         // 提取車站名稱列表
         val stationNames = MtrStationList.stations.map { "${it.nameEn} (${it.nameChi})" }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, stationNames)
@@ -72,11 +91,16 @@ class SettingsActivity : AppCompatActivity() {
         })
 
         // 加載已保存的默認車站
+<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
         val defaultStationId = settingsManager.getDefaultStationId()
+=======
+        val defaultStationId = sharedPreferences.getString("default_station", MtrStationList.stations[0].id)
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
         val defaultStationIndex = MtrStationList.stations.indexOfFirst { it.id == defaultStationId }
         if (defaultStationIndex >= 0) {
             binding.stationSpinner.setSelection(defaultStationIndex)
         }
+<<<<<<< HEAD:app/src/main/java/com/jinwind/mtrschedule/SettingsActivity.kt
     }
 
     private fun setupToppedStationsSettings() {
@@ -141,4 +165,15 @@ class SettingsActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
+=======
+
+        // 保存選擇的車站
+        binding.saveButton.setOnClickListener {
+            val selectedStationIndex = binding.stationSpinner.selectedItemPosition
+            val selectedStationId = filteredStations[selectedStationIndex].id // 使用過濾後的列表
+            sharedPreferences.edit().putString("default_station", selectedStationId).apply()
+            finish()
+        }
+    }
+>>>>>>> e77c14d6f1eb3a7808bbe85c400d56dc5240e6cf:app/src/main/java/com/example/mtrschedule/SettingsActivity.kt
 }
