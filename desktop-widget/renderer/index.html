@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTR 輕鐵時刻表</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="widget-container">
+        <!-- Window Controls Bar -->
+        <div class="window-controls">
+            <div class="drag-area">MTR 輕鐵時刻表</div>
+            <div class="control-buttons">
+                <button id="pinBtn" class="control-btn pin-btn" title="固定置頂">📌</button>
+                <button id="minimizeBtn" class="control-btn" title="最小化">−</button>
+                <button id="closeBtn" class="control-btn close-btn" title="關閉">✕</button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="widget-header">
+            <div class="station-selector">
+                <select id="stationSelect" class="station-dropdown">
+                    <!-- Will be populated by JavaScript -->
+                </select>
+            </div>
+            <button id="refreshBtn" class="refresh-btn" title="刷新">🔄</button>
+        </div>
+
+        <!-- Last Update -->
+        <div class="last-update">
+            最後更新: <span id="lastUpdate">--:--</span>
+        </div>
+
+        <!-- Platforms Container -->
+        <div class="platforms-container">
+            <!-- Platform 1 -->
+            <div class="platform platform-1">
+                <div class="platform-header">
+                    <span class="platform-icon">🚉</span>
+                    <span class="platform-title">月台 1</span>
+                </div>
+                <div id="platform1Trains" class="trains-list">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+
+            <!-- Platform 2 -->
+            <div class="platform platform-2">
+                <div class="platform-header">
+                    <span class="platform-icon">🚉</span>
+                    <span class="platform-title">月台 2</span>
+                </div>
+                <div id="platform2Trains" class="trains-list">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="stations.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

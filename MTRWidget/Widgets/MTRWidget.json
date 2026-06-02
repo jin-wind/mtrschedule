@@ -1,0 +1,198 @@
+{
+  "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${stationName}",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "color": "Accent"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${stationNameEn}",
+                  "size": "Small",
+                  "color": "Good",
+                  "spacing": "None"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "🔄 ${lastUpdate}",
+                  "size": "Small",
+                  "horizontalAlignment": "Right"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "spacing": "Medium",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "🚉 月台 1",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "color": "Attention"
+                },
+                {
+                  "type": "Container",
+                  "spacing": "Small",
+                  "style": "default",
+                  "items": [
+                    {
+                      "type": "Container",
+                      "$data": "${platform1Trains}",
+                      "separator": true,
+                      "spacing": "Small",
+                      "items": [
+                        {
+                          "type": "ColumnSet",
+                          "columns": [
+                            {
+                              "type": "Column",
+                              "width": "auto",
+                              "items": [
+                                {
+                                  "type": "TextBlock",
+                                  "text": "${route}",
+                                  "weight": "Bolder",
+                                  "size": "Large",
+                                  "color": "Attention"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Column",
+                              "width": "stretch",
+                              "items": [
+                                {
+                                  "type": "TextBlock",
+                                  "text": "→ ${destination}",
+                                  "weight": "Bolder",
+                                  "wrap": true
+                                },
+                                {
+                                  "type": "TextBlock",
+                                  "text": "⏰ ${time}  🚋 ${carType}",
+                                  "size": "Small",
+                                  "color": "Good",
+                                  "spacing": "None"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "🚉 月台 2",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "color": "Accent"
+                },
+                {
+                  "type": "Container",
+                  "spacing": "Small",
+                  "style": "default",
+                  "items": [
+                    {
+                      "type": "Container",
+                      "$data": "${platform2Trains}",
+                      "separator": true,
+                      "spacing": "Small",
+                      "items": [
+                        {
+                          "type": "ColumnSet",
+                          "columns": [
+                            {
+                              "type": "Column",
+                              "width": "auto",
+                              "items": [
+                                {
+                                  "type": "TextBlock",
+                                  "text": "${route}",
+                                  "weight": "Bolder",
+                                  "size": "Large",
+                                  "color": "Accent"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Column",
+                              "width": "stretch",
+                              "items": [
+                                {
+                                  "type": "TextBlock",
+                                  "text": "→ ${destination}",
+                                  "weight": "Bolder",
+                                  "wrap": true
+                                },
+                                {
+                                  "type": "TextBlock",
+                                  "text": "⏰ ${time}  🚋 ${carType}",
+                                  "size": "Small",
+                                  "color": "Good",
+                                  "spacing": "None"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Execute",
+      "title": "🔄 刷新",
+      "verb": "refresh"
+    }
+  ]
+}

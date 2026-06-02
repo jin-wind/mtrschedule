@@ -1,0 +1,32 @@
+{
+  "definitionId": "MTR_LRT_Schedule_Widget",
+  "displayName": "MTR 輕鐵時刻表",
+  "description": "顯示香港 MTR 輕鐵即時到站資訊",
+  "iconPath": "Assets/icon.png",
+  "provider": {
+    "id": "com.mtrschedule.widget",
+    "displayName": "MTR Schedule Widget Provider"
+  },
+  "sizes": [
+    {
+      "name": "Medium",
+      "displayName": "中等",
+      "width": 2,
+      "height": 2
+    },
+    {
+      "name": "Large",
+      "displayName": "大",
+      "width": 4,
+      "height": 2
+    }
+  ],
+  "themeResources": [
+    {
+      "id": "Light"
+    },
+    {
+      "id": "Dark"
+    }
+  ]
+}
