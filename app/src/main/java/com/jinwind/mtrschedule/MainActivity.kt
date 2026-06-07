@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.ViewModelProvider
 import com.jinwind.mtrschedule.settings.SettingsManager
-import com.jinwind.mtrschedule.ui.theme.MtrGlassTheme
 import com.jinwind.mtrschedule.ui.theme.MtrApp
 
 class MainActivity : AppCompatActivity() {
@@ -32,9 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(
             ComposeView(this).apply {
                 setContent {
-                    MtrGlassTheme {
-                        MtrApp(viewModel = viewModel)
-                    }
+                    MtrApp(viewModel = viewModel)
                 }
             }
         )

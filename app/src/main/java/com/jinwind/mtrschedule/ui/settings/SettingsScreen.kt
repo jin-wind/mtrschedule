@@ -1,6 +1,6 @@
 package com.jinwind.mtrschedule.ui.settings
 
-import android.content.Context
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,10 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.Button
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,18 +29,22 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.jinwind.mtrschedule.data.MtrStationList
 import com.jinwind.mtrschedule.settings.SettingsManager
-import com.jinwind.mtrschedule.ui.glass.GlassSurface
-import com.jinwind.mtrschedule.ui.theme.MtrGlassTheme
-import com.kyant.backdrop.Backdrop
+import com.jinwind.mtrschedule.ui.miuix.MtrCard
+import top.yukonga.miuix.kmp.basic.Button
+import top.yukonga.miuix.kmp.basic.ButtonDefaults
+import top.yukonga.miuix.kmp.basic.RadioButton
+import top.yukonga.miuix.kmp.basic.Text
+import top.yukonga.miuix.kmp.basic.TextButton
+import top.yukonga.miuix.kmp.theme.MiuixTheme
 
 @Composable
 fun SettingsScreen(
-    backdrop: Backdrop,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val settingsManager = remember { SettingsManager.getInstance(context) }
+    val colors = MiuixTheme.colorScheme
 
     var defaultStationId by remember { mutableStateOf(settingsManager.getDefaultStationId()) }
     var widgetSource by remember { mutableStateOf(settingsManager.getWidgetStationSource()) }
@@ -60,7 +62,7 @@ fun SettingsScreen(
         item {
             Text(
                 "設置",
-                color = MtrGlassTheme.colors.textPrimary,
+                color = colors.onBackground,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -68,18 +70,20 @@ fun SettingsScreen(
         }
 
         item {
-            // Default Station Card
-            GlassSection(backdrop, "預設車站", "Choose the station displayed when opening the app.") {
-                // Simple search field
+            SettingsSection("預設車站", "Choose the station displayed when opening the app.") {
                 var query by remember { mutableStateOf("") }
                 BasicTextField(
                     value = query,
                     onValueChange = { query = it },
-                    textStyle = TextStyle(color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp),
-                    modifier = Modifier.fillMaxWidth(),
+                    textStyle = TextStyle(color = colors.onSurfaceContainer, fontSize = 16.sp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(colors.secondaryVariant, RoundedCornerShape(12.dp))
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    singleLine = true,
                     decorationBox = { inner ->
                         if (query.isEmpty()) {
-                            Text("搜尋車站", color = MtrGlassTheme.colors.textTertiary, fontSize = 16.sp)
+                            Text("搜尋車站", color = colors.onSurfaceContainerVariant, fontSize = 16.sp)
                         }
                         inner()
                     }
@@ -94,58 +98,39 @@ fun SettingsScreen(
                     filtered.take(5).forEach { name ->
                         val station = MtrStationList.stations.find { "${it.nameEn} (${it.nameChi})" == name }
                         val isSelected = station?.id == defaultStationId
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { station?.let { defaultStationId = it.id } },
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = isSelected,
-                                onClick = { station?.let { defaultStationId = it.id } }
-                            )
-                            Text(name, color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp)
-                        }
+                        RadioRow(
+                            text = name,
+                            selected = isSelected,
+                            onClick = { station?.let { defaultStationId = it.id } }
+                        )
                     }
                 }
             }
         }
 
         item {
-            // Widget Station Card
-            GlassSection(backdrop, "Widget Station", "Choose which station the widget displays.") {
+            SettingsSection("Widget Station", "Choose which station the widget displays.") {
                 Column {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = widgetSource != "custom",
-                            onClick = { widgetSource = "default" }
-                        )
-                        Text("Use default station", color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp)
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = widgetSource == "custom",
-                            onClick = { widgetSource = "custom" }
-                        )
-                        Text("Choose a station", color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp)
-                    }
+                    RadioRow(
+                        text = "Use default station",
+                        selected = widgetSource != "custom",
+                        onClick = { widgetSource = "default" }
+                    )
+                    RadioRow(
+                        text = "Choose a station",
+                        selected = widgetSource == "custom",
+                        onClick = { widgetSource = "custom" }
+                    )
                     if (widgetSource == "custom") {
                         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             stationNames.forEach { name ->
                                 val station = MtrStationList.stations.find { "${it.nameEn} (${it.nameChi})" == name }
                                 val isSelected = station?.id == widgetStationId
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable { station?.let { widgetStationId = it.id } },
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    RadioButton(
-                                        selected = isSelected,
-                                        onClick = { station?.let { widgetStationId = it.id } }
-                                    )
-                                    Text(name, color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp)
-                                }
+                                RadioRow(
+                                    text = name,
+                                    selected = isSelected,
+                                    onClick = { station?.let { widgetStationId = it.id } }
+                                )
                             }
                         }
                     }
@@ -154,46 +139,33 @@ fun SettingsScreen(
         }
 
         item {
-            // Language Card
-            GlassSection(backdrop, "Language Settings", "") {
+            SettingsSection("Language Settings", "") {
                 Column {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = language == "system",
-                            onClick = { language = "system" }
-                        )
-                        Text("System default", color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp)
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = language == "en",
-                            onClick = { language = "en" }
-                        )
-                        Text("English", color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp)
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = language == "zh",
-                            onClick = { language = "zh" }
-                        )
-                        Text("中文", color = MtrGlassTheme.colors.textPrimary, fontSize = 16.sp)
-                    }
+                    RadioRow(
+                        text = "System default",
+                        selected = language == "system",
+                        onClick = { language = "system" }
+                    )
+                    RadioRow(
+                        text = "English",
+                        selected = language == "en",
+                        onClick = { language = "en" }
+                    )
+                    RadioRow(
+                        text = "中文",
+                        selected = language == "zh",
+                        onClick = { language = "zh" }
+                    )
                 }
             }
         }
 
         item {
-            // Reset button
-            GlassSection(backdrop, "已頂置站臺", "管理頂置車站") {
-                Row {
-                    androidx.compose.material3.OutlinedButton(
-                        onClick = {
-                            settingsManager.resetToDefaultOrder()
-                        }
-                    ) {
-                        Text("重置車站排序", color = MtrGlassTheme.colors.primary)
-                    }
-                }
+            SettingsSection("已頂置站臺", "管理頂置車站") {
+                TextButton(
+                    text = "重置車站排序",
+                    onClick = { settingsManager.resetToDefaultOrder() }
+                )
             }
         }
 
@@ -210,7 +182,8 @@ fun SettingsScreen(
                     navController.popBackStack()
                 },
                 modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(vertical = 14.dp)
+                colors = ButtonDefaults.buttonColorsPrimary(),
+                insideMargin = PaddingValues(vertical = 14.dp)
             ) {
                 Text("保存設置", fontSize = 18.sp)
             }
@@ -219,37 +192,53 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun GlassSection(
-    backdrop: Backdrop,
+private fun RadioRow(
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    val colors = MiuixTheme.colorScheme
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(selected = selected, onClick = onClick)
+        Text(text, color = colors.onSurfaceContainer, fontSize = 16.sp)
+    }
+}
+
+@Composable
+private fun SettingsSection(
     title: String,
     description: String,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    GlassSurface(
-        backdrop = backdrop,
+    val colors = MiuixTheme.colorScheme
+    MtrCard(
         modifier = modifier.fillMaxWidth(),
-        tint = MtrGlassTheme.colors.surfaceStrong.copy(alpha = 0.5f),
+        color = colors.surfaceContainer,
+        contentColor = colors.onSurfaceContainer,
         contentPadding = PaddingValues(16.dp)
     ) {
-        Column {
+        Text(
+            title,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
+        if (description.isNotBlank()) {
             Text(
-                title,
-                color = MtrGlassTheme.colors.textPrimary,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+                description,
+                color = colors.onSurfaceContainerVariant,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(top = 4.dp, bottom = 12.dp)
             )
-            if (description.isNotBlank()) {
-                Text(
-                    description,
-                    color = MtrGlassTheme.colors.textSecondary,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 4.dp, bottom = 12.dp)
-                )
-            } else {
-                Spacer(Modifier.height(12.dp))
-            }
-            content()
+        } else {
+            Spacer(Modifier.height(12.dp))
         }
+        content()
     }
 }
