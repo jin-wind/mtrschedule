@@ -36,7 +36,6 @@ import com.jinwind.mtrschedule.TrainScheduleViewModel
 import com.jinwind.mtrschedule.model.Station
 import com.jinwind.mtrschedule.model.Train
 import com.jinwind.mtrschedule.ui.miuix.MtrCard
-import com.jinwind.mtrschedule.ui.stations.arrivalText
 import com.jinwind.mtrschedule.ui.util.observeAsStateNotNull
 import top.yukonga.miuix.kmp.basic.CircularProgressIndicator
 import top.yukonga.miuix.kmp.basic.RadioButton
@@ -348,10 +347,21 @@ private fun TrainRow(train: Train) {
         }
 
         Text(
-            text = arrivalText(train),
+            text = routeArrivalText(train),
             color = colors.primary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
         )
+    }
+}
+
+private fun routeArrivalText(train: Train): String {
+    val eta = train.eta.trim()
+    return when {
+        eta.equals("Arriving", ignoreCase = true) || eta == "即將抵達" || eta == "即将抵达" -> "-"
+        eta.isNotBlank() -> eta
+        train.timeToArrival == 0 -> "-"
+        train.timeToArrival == 1 -> "1 min"
+        else -> "${train.timeToArrival} min"
     }
 }
