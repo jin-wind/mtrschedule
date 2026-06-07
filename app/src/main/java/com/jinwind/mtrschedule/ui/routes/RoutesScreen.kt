@@ -320,17 +320,17 @@ private fun TrainRow(train: Train) {
         Column(
             modifier = Modifier
                 .padding(start = 8.dp)
-                .width(54.dp),
+                .width(46.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = train.routeNumber,
                 color = routeColor,
-                fontSize = 18.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .background(colors.secondaryVariant, RoundedCornerShape(7.dp))
-                    .padding(horizontal = 7.dp, vertical = 3.dp)
+                    .background(colors.secondaryVariant, RoundedCornerShape(6.dp))
+                    .padding(horizontal = 6.dp, vertical = 2.dp)
             )
             Text(
                 text = carSeq,
