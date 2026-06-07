@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 主題顏色 (FINDGO Design System) -->
-    <color name="primary">#25497B</color>
-    <color name="primary_variant">#193252</color>
-    <color name="secondary">#AF2A47</color>
-    <color name="secondary_variant">#8B2137</color>
+    <color name="primary">#B21F2D</color>
+    <color name="primary_variant">#851723</color>
+    <color name="secondary">#177E89</color>
+    <color name="secondary_variant">#0F5D66</color>
     <color name="on_primary">#FFFFFF</color>
 
     <!-- 站點顏色，用於收藏狀態 -->
-    <color name="station_top">#25497B</color>
-    <color name="station_topped">#4079C4</color>
-    <color name="station_normal">#E1E6E7</color>
+    <color name="station_top">#B21F2D</color>
+    <color name="station_topped">#D94D56</color>
+    <color name="station_normal">#E3E7EA</color>
 
     <!-- 站台顏色 -->
-    <color name="platform_color">#9195A1</color>
+    <color name="platform_color">#87909A</color>
 
     <!-- 背景顏色 -->
-    <color name="background">#FAFAFA</color>
-    <color name="background_alt">#F0F0F7</color>
+    <color name="background">#F6F7F8</color>
+    <color name="background_alt">#ECEFF1</color>
     <color name="card_background">#FFFFFF</color>
-    <color name="settings_background">#FAFAFA</color>
+    <color name="settings_background">#F6F7F8</color>
 
     <!-- 文本顏色 -->
-    <color name="text_primary">#0A2640</color>
-    <color name="text_secondary">#9195A1</color>
-    <color name="text_tertiary">#C7CBCF</color>
+    <color name="text_primary">#20242A</color>
+    <color name="text_secondary">#5F6872</color>
+    <color name="text_tertiary">#87909A</color>
 
     <!-- 功能色彩 -->
-    <color name="divider_muted">#E1E6E7</color>
+    <color name="divider_muted">#D7DDE1</color>
     <color name="overlay_soft">#CCFFFFFF</color>
-    <color name="icon_tint">#0A2640</color>
+    <color name="icon_tint">#20242A</color>
     <color name="nav_background">#FFFFFF</color>
 
     <!-- 搜尋與表單背景 -->
-    <color name="search_background">#F0F0F7</color>
-    <color name="spinner_background">#F0F0F7</color>
+    <color name="search_background">#ECEFF1</color>
+    <color name="spinner_background">#ECEFF1</color>
 
     <!-- 路線卡片顏色 -->
     <color name="route_card_background">@color/card_background</color>
-    <color name="route_card_header_background">#F0F0F7</color>
+    <color name="route_card_header_background">#ECEFF1</color>
     <color name="route_card_text">@color/text_primary</color>
-    <color name="route_card_time_text">#9195A1</color>
+    <color name="route_card_time_text">#5F6872</color>
 
     <!-- 系統顏色備用 -->
     <color name="black">#FF000000</color>

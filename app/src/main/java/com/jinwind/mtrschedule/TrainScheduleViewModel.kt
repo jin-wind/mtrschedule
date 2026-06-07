@@ -31,6 +31,9 @@ class TrainScheduleViewModel(private val app: Application) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
+    private val _refreshRequests = MutableLiveData(0)
+    val refreshRequests: LiveData<Int> = _refreshRequests
+
     // Bus schedule LiveData
     private val _busSchedule = MutableLiveData<List<Station>>()
     val busSchedule: LiveData<List<Station>> = _busSchedule
@@ -257,19 +260,30 @@ class TrainScheduleViewModel(private val app: Application) : ViewModel() {
             }
 
             if (stations.isNotEmpty()) {
+                // 保存現有置頂狀態，防止被覆寫
+                val pinnedIds = _stationSchedules.value
+                    ?.filter { it.isPinned }
+                    ?.map { it.stationId }
+                    ?.toSet() ?: loadPinnedStations()
+
                 _stationSchedules.value = _stationSchedules.value?.let { currentList ->
                     val updatedList = currentList.toMutableList()
                     // 更新已有的站点数据
                     stations.forEach { newStation ->
                         val index = updatedList.indexOfFirst { it.stationId == newStation.stationId }
+                        val stationWithPin = if (newStation.stationId in pinnedIds) {
+                            newStation.copy(isPinned = true)
+                        } else newStation
                         if (index != -1) {
-                            updatedList[index] = newStation
+                            updatedList[index] = stationWithPin
                         } else {
-                            updatedList.add(newStation)
+                            updatedList.add(stationWithPin)
                         }
                     }
                     updatedList
-                } ?: stations
+                } ?: stations.map {
+                    if (it.stationId in pinnedIds) it.copy(isPinned = true) else it
+                }
 
                 // 将加载的站点数据保存到缓存
                 cacheStationData(stations)
@@ -321,6 +335,10 @@ class TrainScheduleViewModel(private val app: Application) : ViewModel() {
         _stationSchedules.value = updated
     }
 
+    fun requestRefresh() {
+        _refreshRequests.value = (_refreshRequests.value ?: 0) + 1
+    }
+
     fun getBusSchedule(routeName: String) {
         _isLoading.value = true
         viewModelScope.launch {
@@ -359,5 +377,9 @@ class TrainScheduleViewModel(private val app: Application) : ViewModel() {
             }
             _isLoading.value = false
         }
+    }
+
+    fun clearSelectedStation() {
+        _selectedStation.value = null
     }
 }

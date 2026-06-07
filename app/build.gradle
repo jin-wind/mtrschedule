@@ -1,16 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
+    id 'org.jetbrains.compose'
 }
 
 android {
     namespace 'com.jinwind.mtrschedule'
-    compileSdk 34
+    compileSdk 37
 
     defaultConfig {
         applicationId "com.jinwind.mtrschedule"
         minSdk 24
-        targetSdk 34
+        targetSdk 37
         versionCode 25
         versionName "2.5"
 
@@ -26,15 +28,16 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
@@ -44,6 +47,18 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // Compose + Backdrop liquid glass UI
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.lifecycle.viewmodel.compose
+    implementation libs.compose.foundation
+    implementation libs.compose.ui
+    implementation libs.compose.ui.graphics
+    implementation libs.compose.material3
+    implementation libs.backdrop.android
+    implementation libs.compose.navigation
+    debugImplementation libs.compose.ui.tooling
+    implementation libs.compose.ui.tooling.preview
 
     // Retrofit for API calls
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
