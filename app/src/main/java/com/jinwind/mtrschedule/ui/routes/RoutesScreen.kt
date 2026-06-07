@@ -329,9 +329,9 @@ private fun TrainRow(train: Train) {
         Row(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 10.dp),
+                .padding(start = 8.dp, end = 3.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             Text(
                 text = train.destination.ifBlank { "未知目的地" },
@@ -342,7 +342,7 @@ private fun TrainRow(train: Train) {
             Image(
                 painter = painterResource(if (train.isDoubleCar) R.drawable.ic_train_double else R.drawable.ic_train_single),
                 contentDescription = if (train.isDoubleCar) "Double car" else "Single car",
-                modifier = Modifier.height(16.dp)
+                modifier = Modifier.height(14.dp)
             )
         }
 
