@@ -15,8 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,29 +29,27 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.jinwind.mtrschedule.R
 import com.jinwind.mtrschedule.TrainScheduleViewModel
 import com.jinwind.mtrschedule.model.Station
-import com.jinwind.mtrschedule.ui.glass.GlassSurface
-import com.jinwind.mtrschedule.ui.theme.MtrGlassTheme
+import com.jinwind.mtrschedule.ui.miuix.MtrCard
 import com.jinwind.mtrschedule.ui.util.observeAsStateNotNull
 import com.jinwind.mtrschedule.ui.util.observeAsStateValue
-import com.kyant.backdrop.Backdrop
+import top.yukonga.miuix.kmp.basic.CircularProgressIndicator
+import top.yukonga.miuix.kmp.basic.Text
+import top.yukonga.miuix.kmp.theme.MiuixTheme
 
 @Composable
 fun StationListScreen(
     viewModel: TrainScheduleViewModel,
-    backdrop: Backdrop,
-    navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-
     val stations: List<Station> by viewModel.stationSchedules.observeAsStateNotNull(emptyList())
     val isLoading: Boolean by viewModel.isLoading.observeAsStateNotNull(false)
     val error: String by viewModel.error.observeAsStateNotNull("")
     val selectedStation: Station? by viewModel.selectedStation.observeAsStateValue(null)
     val refreshRequest: Int by viewModel.refreshRequests.observeAsStateNotNull(0)
+    val colors = MiuixTheme.colorScheme
 
     var query by remember { mutableStateOf("") }
 
@@ -80,19 +76,15 @@ fun StationListScreen(
 
     Box(modifier.fillMaxSize()) {
         if (isLoading && stations.isEmpty()) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center),
-                color = MtrGlassTheme.colors.primary
-            )
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         } else if (error.isNotEmpty() && stations.isEmpty()) {
             Text(
                 text = error,
-                color = MtrGlassTheme.colors.error,
+                color = colors.error,
                 modifier = Modifier.align(Alignment.Center).padding(24.dp)
             )
         } else if (selectedStation != null) {
             StationDetailScreen(
-                backdrop = backdrop,
                 station = selectedStation,
                 onBackClick = { viewModel.clearSelectedStation() }
             )
@@ -100,15 +92,13 @@ fun StationListScreen(
                 CircularProgressIndicator(
                     modifier = Modifier
                         .align(Alignment.TopEnd)
-                        .padding(24.dp)
-                        .size(28.dp),
-                    color = MtrGlassTheme.colors.primary
+                        .padding(24.dp),
+                    size = 28.dp
                 )
             }
         } else {
             Column(modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                 SearchField(
-                    backdrop = backdrop,
                     query = query,
                     onQueryChange = { query = it },
                     modifier = Modifier.fillMaxWidth()
@@ -119,7 +109,6 @@ fun StationListScreen(
                 ) {
                     items(sorted, key = { it.stationId }) { station ->
                         StationCard(
-                            backdrop = backdrop,
                             station = station,
                             isTopped = station.isPinned,
                             onClick = { viewModel.fetchStationSchedule(station.stationId) },
@@ -134,28 +123,27 @@ fun StationListScreen(
 
 @Composable
 private fun SearchField(
-    backdrop: Backdrop,
     query: String,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colors = MtrGlassTheme.colors
-    GlassSurface(
-        backdrop = backdrop,
+    val colors = MiuixTheme.colorScheme
+    MtrCard(
         modifier = modifier,
-        radius = 24.dp,
-        tint = colors.surface.copy(alpha = 0.72f),
+        color = colors.surfaceContainer,
+        contentColor = colors.onSurfaceContainer,
+        cornerRadius = 24.dp,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
     ) {
         BasicTextField(
             value = query,
             onValueChange = onQueryChange,
-            textStyle = TextStyle(color = colors.textPrimary, fontSize = 16.sp),
+            textStyle = TextStyle(color = colors.onSurfaceContainer, fontSize = 16.sp),
             singleLine = true,
             modifier = Modifier.fillMaxWidth(),
             decorationBox = { innerTextField ->
                 if (query.isEmpty()) {
-                    Text("搜尋車站", color = colors.textTertiary, fontSize = 16.sp)
+                    Text("搜尋車站", color = colors.onSurfaceContainerVariant, fontSize = 16.sp)
                 }
                 innerTextField()
             }
@@ -165,30 +153,39 @@ private fun SearchField(
 
 @Composable
 private fun StationCard(
-    backdrop: Backdrop,
     station: Station,
     isTopped: Boolean,
     onClick: () -> Unit,
     onPin: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colors = MtrGlassTheme.colors
-    GlassSurface(
-        backdrop = backdrop,
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        tint = if (isTopped) colors.primary.copy(alpha = 0.62f) else colors.surface.copy(alpha = 0.78f)
+    val colors = MiuixTheme.colorScheme
+    MtrCard(
+        modifier = modifier.fillMaxWidth(),
+        selected = isTopped,
+        color = if (isTopped) colors.primary else colors.surfaceContainer,
+        contentColor = if (isTopped) colors.onPrimary else colors.onSurfaceContainer,
+        onClick = onClick
     ) {
         Row(
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Column(Modifier.weight(1f)) {
-                Text(station.stationName, color = colors.textPrimary, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                Text("ID: ${station.stationId}", color = colors.textSecondary, fontSize = 14.sp, modifier = Modifier.padding(top = 4.dp))
+                Text(station.stationName, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    "ID: ${station.stationId}",
+                    color = if (isTopped) colors.onPrimary.copy(alpha = 0.78f) else colors.onSurfaceContainerVariant,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
                 station.nextTrains.firstOrNull()?.destination?.takeIf { it.isNotBlank() }?.let {
-                    Text(it, color = colors.textSecondary, fontSize = 14.sp, modifier = Modifier.padding(top = 6.dp))
+                    Text(
+                        it,
+                        color = if (isTopped) colors.onPrimary.copy(alpha = 0.78f) else colors.onSurfaceContainerVariant,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(top = 6.dp)
+                    )
                 }
             }
             Box(

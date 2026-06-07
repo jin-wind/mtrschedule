@@ -48,14 +48,13 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
-    // Compose + Backdrop liquid glass UI
+    // Compose + Miuix UI
     implementation libs.androidx.activity.compose
     implementation libs.androidx.lifecycle.viewmodel.compose
     implementation libs.compose.foundation
     implementation libs.compose.ui
     implementation libs.compose.ui.graphics
-    implementation libs.compose.material3
-    implementation libs.backdrop.android
+    implementation libs.miuix.ui.android
     implementation libs.compose.navigation
     debugImplementation libs.compose.ui.tooling
     implementation libs.compose.ui.tooling.preview
