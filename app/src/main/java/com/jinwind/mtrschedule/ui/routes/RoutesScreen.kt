@@ -150,7 +150,7 @@ private fun RouteList(
     val colors = MiuixTheme.colorScheme
     Column(
         modifier = Modifier
-            .width(112.dp)
+            .width(104.dp)
             .fillMaxHeight()
             .background(colors.surfaceVariant)
             .padding(horizontal = 10.dp, vertical = 12.dp)
@@ -302,7 +302,6 @@ private fun RouteStationCard(
 private fun TrainRow(train: Train) {
     val colors = MiuixTheme.colorScheme
     val routeColor = getRouteColor(train.routeNumber)
-    val carSeq = train.trainId.filter { it.isDigit() }.takeLast(3).padStart(3, '0')
 
     Row(
         modifier = Modifier
@@ -317,29 +316,16 @@ private fun TrainRow(train: Train) {
                 .background(routeColor, RoundedCornerShape(2.dp))
         )
 
-        Column(
+        Text(
+            text = train.routeNumber,
+            color = routeColor,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(start = 8.dp)
-                .width(46.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = train.routeNumber,
-                color = routeColor,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .background(colors.secondaryVariant, RoundedCornerShape(6.dp))
-                    .padding(horizontal = 6.dp, vertical = 2.dp)
-            )
-            Text(
-                text = carSeq,
-                color = colors.onSurfaceContainerVariant,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(top = 2.dp)
-            )
-        }
+                .background(colors.secondaryVariant, RoundedCornerShape(5.dp))
+                .padding(horizontal = 5.dp, vertical = 2.dp)
+        )
 
         Row(
             modifier = Modifier
