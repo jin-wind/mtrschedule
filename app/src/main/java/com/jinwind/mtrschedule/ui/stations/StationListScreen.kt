@@ -36,6 +36,7 @@ import com.jinwind.mtrschedule.ui.miuix.MtrCard
 import com.jinwind.mtrschedule.ui.util.observeAsStateNotNull
 import com.jinwind.mtrschedule.ui.util.observeAsStateValue
 import top.yukonga.miuix.kmp.basic.CircularProgressIndicator
+import top.yukonga.miuix.kmp.basic.PullToRefresh
 import top.yukonga.miuix.kmp.basic.Text
 import top.yukonga.miuix.kmp.theme.MiuixTheme
 
@@ -74,46 +75,58 @@ fun StationListScreen(
     }
     val sorted = filtered.sortedByDescending { it.isPinned }
 
-    Box(modifier.fillMaxSize()) {
-        if (isLoading && stations.isEmpty()) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        } else if (error.isNotEmpty() && stations.isEmpty()) {
-            Text(
-                text = error,
-                color = colors.error,
-                modifier = Modifier.align(Alignment.Center).padding(24.dp)
-            )
-        } else if (selectedStation != null) {
-            StationDetailScreen(
-                station = selectedStation,
-                onBackClick = { viewModel.clearSelectedStation() }
-            )
-            if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(24.dp),
-                    size = 28.dp
+    PullToRefresh(
+        isRefreshing = isLoading,
+        onRefresh = {
+            selectedStation?.let { station ->
+                viewModel.fetchStationSchedule(station.stationId)
+            } ?: viewModel.loadAllStations()
+        },
+        modifier = modifier.fillMaxSize(),
+        color = colors.primary,
+        refreshTexts = listOf("下拉刷新", "鬆開刷新", "刷新中...", "已刷新")
+    ) {
+        Box(Modifier.fillMaxSize()) {
+            if (isLoading && stations.isEmpty()) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            } else if (error.isNotEmpty() && stations.isEmpty()) {
+                Text(
+                    text = error,
+                    color = colors.error,
+                    modifier = Modifier.align(Alignment.Center).padding(24.dp)
                 )
-            }
-        } else {
-            Column(modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-                SearchField(
-                    query = query,
-                    onQueryChange = { query = it },
-                    modifier = Modifier.fillMaxWidth()
+            } else if (selectedStation != null) {
+                StationDetailScreen(
+                    station = selectedStation,
+                    onBackClick = { viewModel.clearSelectedStation() }
                 )
-                LazyColumn(
-                    modifier = Modifier.padding(top = 12.dp).weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(sorted, key = { it.stationId }) { station ->
-                        StationCard(
-                            station = station,
-                            isTopped = station.isPinned,
-                            onClick = { viewModel.fetchStationSchedule(station.stationId) },
-                            onPin = { viewModel.togglePinStation(station.stationId) }
-                        )
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(24.dp),
+                        size = 28.dp
+                    )
+                }
+            } else {
+                Column(modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+                    SearchField(
+                        query = query,
+                        onQueryChange = { query = it },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    LazyColumn(
+                        modifier = Modifier.padding(top = 12.dp).weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        items(sorted, key = { it.stationId }) { station ->
+                            StationCard(
+                                station = station,
+                                isTopped = station.isPinned,
+                                onClick = { viewModel.fetchStationSchedule(station.stationId) },
+                                onPin = { viewModel.togglePinStation(station.stationId) }
+                            )
+                        }
                     }
                 }
             }

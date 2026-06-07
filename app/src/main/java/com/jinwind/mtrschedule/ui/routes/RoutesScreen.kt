@@ -150,10 +150,10 @@ private fun RouteList(
     val colors = MiuixTheme.colorScheme
     Column(
         modifier = Modifier
-            .width(96.dp)
+            .width(112.dp)
             .fillMaxHeight()
             .background(colors.surfaceVariant)
-            .padding(horizontal = 8.dp, vertical = 12.dp)
+            .padding(horizontal = 10.dp, vertical = 12.dp)
     ) {
         ModeRow("LRT", selected = !isBusMode) { onModeChange(false) }
         ModeRow("Bus", selected = isBusMode) { onModeChange(true) }
@@ -167,13 +167,13 @@ private fun RouteList(
                     color = if (isSelected) colors.primary else colors.surfaceContainer,
                     contentColor = if (isSelected) colors.onPrimary else colors.onSurfaceContainer,
                     cornerRadius = 12.dp,
-                    contentPadding = PaddingValues(vertical = 8.dp, horizontal = 4.dp),
+                    contentPadding = PaddingValues(vertical = 11.dp, horizontal = 8.dp),
                     onClick = { onRouteSelected(route) }
                 ) {
                     Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                         Text(
                             route,
-                            fontSize = 14.sp,
+                            fontSize = 15.sp,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
                         )
                     }
@@ -317,16 +317,29 @@ private fun TrainRow(train: Train) {
                 .background(routeColor, RoundedCornerShape(2.dp))
         )
 
-        Text(
-            text = carSeq,
-            color = colors.onSurfaceContainerVariant,
-            fontSize = 10.sp,
-            fontWeight = FontWeight.Medium,
+        Column(
             modifier = Modifier
                 .padding(start = 8.dp)
-                .background(colors.secondaryVariant, RoundedCornerShape(4.dp))
-                .padding(horizontal = 4.dp, vertical = 2.dp)
-        )
+                .width(54.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = train.routeNumber,
+                color = routeColor,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .background(colors.secondaryVariant, RoundedCornerShape(7.dp))
+                    .padding(horizontal = 7.dp, vertical = 3.dp)
+            )
+            Text(
+                text = carSeq,
+                color = colors.onSurfaceContainerVariant,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+        }
 
         Row(
             modifier = Modifier
